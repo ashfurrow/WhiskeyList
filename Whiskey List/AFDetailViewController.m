@@ -38,6 +38,7 @@
     {
         self.nameTextField.enabled = YES;
         self.regionTextField.enabled = YES;
+        
     }
     else
     {
@@ -50,6 +51,18 @@
             {
                 [self updateItem];
             }
+        }
+    }
+    
+    if (!self.creatingNewEntity)
+    {
+        if (self.isEditing)
+        {
+            [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(userDidCancelExistingItem:)] animated:YES];
+        }
+        else
+        {
+            [self.navigationItem setLeftBarButtonItem:nil animated:YES];
         }
     }
     
@@ -74,9 +87,14 @@
 
 #pragma mark - User Interaction Methods
 
--(void)userDidCancel:(id)sender
+-(void)userDidCancelNewItem:(id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)userDidCancelExistingItem:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)userDidFinish:(id)sender
@@ -112,7 +130,7 @@
     {
         self.title = NSLocalizedString(@"New Whiskey", @"Detail default title");
         
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(userDidCancel:)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(userDidCancelNewItem:)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(userDidFinish:)];
         
         self.editing = NO;
@@ -145,17 +163,23 @@
     {
         AFRegion *newRegion = [NSEntityDescription insertNewObjectForEntityForName:@"Region" inManagedObjectContext:self.managedObjectContext];
         [newRegion setValue:regionName forKey:@"name"];
+        [newRegion setValue:[regionName lowercaseString] forKey:@"canonicalName"];
         return newRegion;
     }
 }
 
 - (void)insertNewObject
 {
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:@"Whiskey" inManagedObjectContext:self.managedObjectContext];
+    NSManagedObject *newWhiskeyObject = [NSEntityDescription insertNewObjectForEntityForName:@"Whiskey" inManagedObjectContext:self.managedObjectContext];
     
-    [newManagedObject setValue:self.nameTextField.text forKey:@"name"];
-    [newManagedObject setValue:[self findOrCreateRegion:self.regionTextField.text] forKey:@"region"];
-    [[newManagedObject valueForKey:@"region"] addWhiskiesObject:newManagedObject];
+    [newWhiskeyObject setValue:self.nameTextField.text forKey:@"name"];
+    [newWhiskeyObject setValue:[self.nameTextField.text lowercaseString] forKey:@"canonicalName"];
+    [newWhiskeyObject setValue:[self findOrCreateRegion:self.regionTextField.text] forKey:@"region"];
+    [[newWhiskeyObject valueForKey:@"region"] addWhiskiesObject:newWhiskeyObject];
+    
+    NSManagedObject *newWhiskeyImage = [NSEntityDescription insertNewObjectForEntityForName:@"WhiskeyImage" inManagedObjectContext:self.managedObjectContext];
+    [newWhiskeyImage setValue:newWhiskeyObject forKey:@"whiskey"];
+    [newWhiskeyObject setValue:newWhiskeyImage forKey:@"image"];
     
     // Save the context.
     NSError *error = nil;
