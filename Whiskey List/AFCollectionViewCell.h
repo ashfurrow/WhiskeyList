@@ -11,6 +11,7 @@
 @interface AFCollectionViewCell : UICollectionViewCell
 
 -(void)setName:(NSString *)name;
+-(void)setRegion:(NSString *)region;
 -(void)setImage:(UIImage *)image;
 
 @end

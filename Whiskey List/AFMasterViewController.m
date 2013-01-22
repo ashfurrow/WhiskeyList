@@ -142,6 +142,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     [cell setName:[object valueForKey:@"name"]];
+    [cell setRegion:[object valueForKeyPath:@"region.name"]];
 }
 
 -(void)setupNavigationItem
