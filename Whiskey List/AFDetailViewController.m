@@ -105,6 +105,8 @@
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
         self.editing = NO;
+        
+        self.title = NSLocalizedString(@"Info", @"Detail edit default title");
     }
     else if (self.creatingNewEntity)
     {
