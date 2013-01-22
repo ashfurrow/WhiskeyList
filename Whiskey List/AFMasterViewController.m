@@ -11,6 +11,7 @@
 // Controllers
 #import "AFDetailViewController.h"
 #import "AFColelctionViewFlowLayout.h"
+#import "AFNavigationController.h"
 
 // Extensions
 #import "AFMasterViewController+NSFetchedResultsController.h"
@@ -74,23 +75,6 @@ static NSString *CellIdentifier = @"CellIdentifier";
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender
-{
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:@"name goes here" forKey:@"name"];
-    
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    }
-}
-
 #pragma mark - UICollectionView
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -140,6 +124,17 @@ static NSString *CellIdentifier = @"CellIdentifier";
     }];
 }
 
+-(void)promptForNewWhiskey:(id)sender
+{
+    AFDetailViewController *viewController = [[AFDetailViewController alloc] initWithNibName:@"AFDetailViewController" bundle:nil];
+    viewController.managedObjectContext = self.managedObjectContext;
+    viewController.creatingNewEntity = YES;
+    AFNavigationController *navigationController = [[AFNavigationController alloc] initWithRootViewController:viewController];
+    navigationController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
+    navigationController.navigationBar.translucent = self.navigationController.navigationBar.translucent;
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
 #pragma mark - Private Custom Methods
 
 - (void)configureCell:(AFCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -155,7 +150,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
     self.layoutModeSelectionSegmentedControl.selectedSegmentIndex = [[NSUserDefaults standardUserDefaults] integerForKey:AFCollectionViewLayoutModeKey];
     self.layoutModeSelectionSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     [self.layoutModeSelectionSegmentedControl addTarget:self action:@selector(layoutModeSegmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
-    //TODO: segmented control accessibility?
+    //TODO: segmented control accessibility
     
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.layoutModeSelectionSegmentedControl];;
     leftBarButtonItem.style = UIBarButtonItemStylePlain;
@@ -164,7 +159,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
     
     self.title = NSLocalizedString(@"Whiskey List", @"Main view controller title");
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(promptForNewWhiskey:)];
     addButton.accessibilityLabel = NSLocalizedString(@"Add a new whiskey", @"add button accessibility label.");
     self.navigationItem.rightBarButtonItem = addButton;
 }

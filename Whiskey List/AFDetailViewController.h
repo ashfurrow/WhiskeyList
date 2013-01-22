@@ -12,6 +12,10 @@
 
 @property (strong, nonatomic) id detailItem;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (nonatomic, assign) BOOL creatingNewEntity;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *regionTextField;
 
 @end

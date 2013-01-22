@@ -37,6 +37,7 @@
 		5EA9E6B516AE1BC6008DC4E4 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6B316AE1BC6008DC4E4 /* list.png */; };
 		5EA9E6BD16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6BC16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m */; };
 		5EA9E6C016AE2A31008DC4E4 /* AFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6BF16AE2A30008DC4E4 /* AFNavigationController.m */; };
+		5EA9E6C316AE3A32008DC4E4 /* AFRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6C216AE3A32008DC4E4 /* AFRegion.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,8 @@
 		5EA9E6BC16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFMasterViewController+NSFetchedResultsController.m"; sourceTree = "<group>"; };
 		5EA9E6BE16AE2A30008DC4E4 /* AFNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNavigationController.h; sourceTree = "<group>"; };
 		5EA9E6BF16AE2A30008DC4E4 /* AFNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNavigationController.m; sourceTree = "<group>"; };
+		5EA9E6C116AE3A32008DC4E4 /* AFRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFRegion.h; sourceTree = "<group>"; };
+		5EA9E6C216AE3A32008DC4E4 /* AFRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRegion.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +229,8 @@
 			isa = PBXGroup;
 			children = (
 				5EA9E66816AE1203008DC4E4 /* Whiskey_List.xcdatamodeld */,
+				5EA9E6C116AE3A32008DC4E4 /* AFRegion.h */,
+				5EA9E6C216AE3A32008DC4E4 /* AFRegion.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -388,6 +393,7 @@
 				5EA9E6AC16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.m in Sources */,
 				5EA9E6BD16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m in Sources */,
 				5EA9E6C016AE2A31008DC4E4 /* AFNavigationController.m in Sources */,
+				5EA9E6C316AE3A32008DC4E4 /* AFRegion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

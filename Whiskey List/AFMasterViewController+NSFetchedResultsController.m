@@ -38,8 +38,7 @@
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
-    NSArray *sortDescriptors = @[sortDescriptor];
+    NSArray *sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"region.name" ascending:NO], [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO]];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
@@ -67,10 +66,10 @@
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            change[@(type)] = @[@(sectionIndex)];
+            change[@(type)] = @(sectionIndex);
             break;
         case NSFetchedResultsChangeDelete:
-            change[@(type)] = @[@(sectionIndex)];
+            change[@(type)] = @(sectionIndex);
             break;
     }
     
