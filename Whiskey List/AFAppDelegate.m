@@ -9,6 +9,7 @@
 #import "AFAppDelegate.h"
 
 #import "AFMasterViewController.h"
+#import "AFNavigationController.h"
 
 @implementation AFAppDelegate
 
@@ -23,7 +24,7 @@
 
     AFMasterViewController *masterViewController = [[AFMasterViewController alloc] init];
     masterViewController.wantsFullScreenLayout = YES;
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
+    self.navigationController = [[AFNavigationController alloc] initWithRootViewController:masterViewController];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.wantsFullScreenLayout = YES;

@@ -1,5 +1,5 @@
 //
-//  AFCollectionViewCell.h
+//  AFNavigationController.h
 //  Whiskey List
 //
 //  Created by Ash Furrow on 2013-01-21.
@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AFCollectionViewCell : UICollectionViewCell
-
--(void)setName:(NSString *)name;
--(void)setImage:(UIImage *)image;
+@interface AFNavigationController : UINavigationController
 
 @end

@@ -35,6 +35,8 @@
 		5EA9E6B016AE1AA6008DC4E4 /* grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6AE16AE1AA5008DC4E4 /* grid@2x.png */; };
 		5EA9E6B416AE1BC6008DC4E4 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6B216AE1BC6008DC4E4 /* list@2x.png */; };
 		5EA9E6B516AE1BC6008DC4E4 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6B316AE1BC6008DC4E4 /* list.png */; };
+		5EA9E6BD16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6BC16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m */; };
+		5EA9E6C016AE2A31008DC4E4 /* AFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6BF16AE2A30008DC4E4 /* AFNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,10 @@
 		5EA9E6AE16AE1AA5008DC4E4 /* grid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grid@2x.png"; sourceTree = "<group>"; };
 		5EA9E6B216AE1BC6008DC4E4 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
 		5EA9E6B316AE1BC6008DC4E4 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
+		5EA9E6BB16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFMasterViewController+NSFetchedResultsController.h"; sourceTree = "<group>"; };
+		5EA9E6BC16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFMasterViewController+NSFetchedResultsController.m"; sourceTree = "<group>"; };
+		5EA9E6BE16AE2A30008DC4E4 /* AFNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNavigationController.h; sourceTree = "<group>"; };
+		5EA9E6BF16AE2A30008DC4E4 /* AFNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,8 +158,8 @@
 				5EA9E65F16AE1203008DC4E4 /* AFAppDelegate.h */,
 				5EA9E66016AE1203008DC4E4 /* AFAppDelegate.m */,
 				5EA9E6B116AE1AAA008DC4E4 /* Images */,
-				5EA9E69E16AE15B9008DC4E4 /* Controllers */,
 				5EA9E6A916AE1795008DC4E4 /* Collection View Extensions */,
+				5EA9E69E16AE15B9008DC4E4 /* Controllers */,
 				5EA9E6A216AE15D4008DC4E4 /* Views */,
 				5EA9E6A316AE15DC008DC4E4 /* Model */,
 				5EA9E65716AE1203008DC4E4 /* Supporting Files */,
@@ -197,8 +203,9 @@
 		5EA9E69E16AE15B9008DC4E4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5EA9E66B16AE1203008DC4E4 /* AFMasterViewController.h */,
-				5EA9E66C16AE1204008DC4E4 /* AFMasterViewController.m */,
+				5EA9E6BE16AE2A30008DC4E4 /* AFNavigationController.h */,
+				5EA9E6BF16AE2A30008DC4E4 /* AFNavigationController.m */,
+				5EA9E6BA16AE2140008DC4E4 /* Root View Controller */,
 				5EA9E66E16AE1204008DC4E4 /* AFDetailViewController.h */,
 				5EA9E66F16AE1204008DC4E4 /* AFDetailViewController.m */,
 				5EA9E67416AE1204008DC4E4 /* AFDetailViewController.xib */,
@@ -243,6 +250,17 @@
 				5EA9E6B316AE1BC6008DC4E4 /* list.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		5EA9E6BA16AE2140008DC4E4 /* Root View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E66B16AE1203008DC4E4 /* AFMasterViewController.h */,
+				5EA9E66C16AE1204008DC4E4 /* AFMasterViewController.m */,
+				5EA9E6BB16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.h */,
+				5EA9E6BC16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m */,
+			);
+			name = "Root View Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,6 +386,8 @@
 				5EA9E6A116AE15CE008DC4E4 /* AFCollectionViewCell.m in Sources */,
 				5EA9E6A816AE178F008DC4E4 /* AFColelctionViewFlowLayout.m in Sources */,
 				5EA9E6AC16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.m in Sources */,
+				5EA9E6BD16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m in Sources */,
+				5EA9E6C016AE2A31008DC4E4 /* AFNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
