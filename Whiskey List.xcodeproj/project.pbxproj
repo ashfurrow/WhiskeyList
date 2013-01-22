@@ -1,0 +1,572 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5EA9E64F16AE1203008DC4E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E64E16AE1203008DC4E4 /* UIKit.framework */; };
+		5EA9E65116AE1203008DC4E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65016AE1203008DC4E4 /* Foundation.framework */; };
+		5EA9E65316AE1203008DC4E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65216AE1203008DC4E4 /* CoreGraphics.framework */; };
+		5EA9E65516AE1203008DC4E4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65416AE1203008DC4E4 /* CoreData.framework */; };
+		5EA9E65B16AE1203008DC4E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E65916AE1203008DC4E4 /* InfoPlist.strings */; };
+		5EA9E65D16AE1203008DC4E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E65C16AE1203008DC4E4 /* main.m */; };
+		5EA9E66116AE1203008DC4E4 /* AFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E66016AE1203008DC4E4 /* AFAppDelegate.m */; };
+		5EA9E66316AE1203008DC4E4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E66216AE1203008DC4E4 /* Default.png */; };
+		5EA9E66516AE1203008DC4E4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E66416AE1203008DC4E4 /* Default@2x.png */; };
+		5EA9E66716AE1203008DC4E4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E66616AE1203008DC4E4 /* Default-568h@2x.png */; };
+		5EA9E66A16AE1203008DC4E4 /* Whiskey_List.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E66816AE1203008DC4E4 /* Whiskey_List.xcdatamodeld */; };
+		5EA9E66D16AE1204008DC4E4 /* AFMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E66C16AE1204008DC4E4 /* AFMasterViewController.m */; };
+		5EA9E67016AE1204008DC4E4 /* AFDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E66F16AE1204008DC4E4 /* AFDetailViewController.m */; };
+		5EA9E67616AE1204008DC4E4 /* AFDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E67416AE1204008DC4E4 /* AFDetailViewController.xib */; };
+		5EA9E67E16AE1204008DC4E4 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E67D16AE1204008DC4E4 /* SenTestingKit.framework */; };
+		5EA9E67F16AE1204008DC4E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E64E16AE1203008DC4E4 /* UIKit.framework */; };
+		5EA9E68016AE1204008DC4E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65016AE1203008DC4E4 /* Foundation.framework */; };
+		5EA9E68116AE1204008DC4E4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65416AE1203008DC4E4 /* CoreData.framework */; };
+		5EA9E68916AE1204008DC4E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E68716AE1204008DC4E4 /* InfoPlist.strings */; };
+		5EA9E68C16AE1204008DC4E4 /* Whiskey_ListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E68B16AE1204008DC4E4 /* Whiskey_ListTests.m */; };
+		5EA9E6A116AE15CE008DC4E4 /* AFCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6A016AE15CE008DC4E4 /* AFCollectionViewCell.m */; };
+		5EA9E6A516AE1644008DC4E4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E6A416AE1644008DC4E4 /* QuartzCore.framework */; };
+		5EA9E6A816AE178F008DC4E4 /* AFColelctionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6A716AE178F008DC4E4 /* AFColelctionViewFlowLayout.m */; };
+		5EA9E6AC16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6AB16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.m */; };
+		5EA9E6AF16AE1AA6008DC4E4 /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6AD16AE1AA5008DC4E4 /* grid.png */; };
+		5EA9E6B016AE1AA6008DC4E4 /* grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6AE16AE1AA5008DC4E4 /* grid@2x.png */; };
+		5EA9E6B416AE1BC6008DC4E4 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6B216AE1BC6008DC4E4 /* list@2x.png */; };
+		5EA9E6B516AE1BC6008DC4E4 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6B316AE1BC6008DC4E4 /* list.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5EA9E68216AE1204008DC4E4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5EA9E64116AE1203008DC4E4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5EA9E64916AE1203008DC4E4;
+			remoteInfo = "Whiskey List";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5EA9E64A16AE1203008DC4E4 /* Whiskey List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Whiskey List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EA9E64E16AE1203008DC4E4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		5EA9E65016AE1203008DC4E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		5EA9E65216AE1203008DC4E4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		5EA9E65416AE1203008DC4E4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5EA9E65816AE1203008DC4E4 /* Whiskey List-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Whiskey List-Info.plist"; sourceTree = "<group>"; };
+		5EA9E65A16AE1203008DC4E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5EA9E65C16AE1203008DC4E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5EA9E65E16AE1203008DC4E4 /* Whiskey List-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Whiskey List-Prefix.pch"; sourceTree = "<group>"; };
+		5EA9E65F16AE1203008DC4E4 /* AFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFAppDelegate.h; sourceTree = "<group>"; };
+		5EA9E66016AE1203008DC4E4 /* AFAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFAppDelegate.m; sourceTree = "<group>"; };
+		5EA9E66216AE1203008DC4E4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		5EA9E66416AE1203008DC4E4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		5EA9E66616AE1203008DC4E4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		5EA9E66916AE1203008DC4E4 /* Whiskey_List.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Whiskey_List.xcdatamodel; sourceTree = "<group>"; };
+		5EA9E66B16AE1203008DC4E4 /* AFMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFMasterViewController.h; sourceTree = "<group>"; };
+		5EA9E66C16AE1204008DC4E4 /* AFMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFMasterViewController.m; sourceTree = "<group>"; };
+		5EA9E66E16AE1204008DC4E4 /* AFDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFDetailViewController.h; sourceTree = "<group>"; };
+		5EA9E66F16AE1204008DC4E4 /* AFDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFDetailViewController.m; sourceTree = "<group>"; };
+		5EA9E67516AE1204008DC4E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AFDetailViewController.xib; sourceTree = "<group>"; };
+		5EA9E67C16AE1204008DC4E4 /* Whiskey ListTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Whiskey ListTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EA9E67D16AE1204008DC4E4 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		5EA9E68616AE1204008DC4E4 /* Whiskey ListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Whiskey ListTests-Info.plist"; sourceTree = "<group>"; };
+		5EA9E68816AE1204008DC4E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5EA9E68A16AE1204008DC4E4 /* Whiskey_ListTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Whiskey_ListTests.h; sourceTree = "<group>"; };
+		5EA9E68B16AE1204008DC4E4 /* Whiskey_ListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Whiskey_ListTests.m; sourceTree = "<group>"; };
+		5EA9E69F16AE15CE008DC4E4 /* AFCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFCollectionViewCell.h; sourceTree = "<group>"; };
+		5EA9E6A016AE15CE008DC4E4 /* AFCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFCollectionViewCell.m; sourceTree = "<group>"; };
+		5EA9E6A416AE1644008DC4E4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5EA9E6A616AE178F008DC4E4 /* AFColelctionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFColelctionViewFlowLayout.h; sourceTree = "<group>"; };
+		5EA9E6A716AE178F008DC4E4 /* AFColelctionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFColelctionViewFlowLayout.m; sourceTree = "<group>"; };
+		5EA9E6AA16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFCollectionViewLayoutAttributes.h; sourceTree = "<group>"; };
+		5EA9E6AB16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFCollectionViewLayoutAttributes.m; sourceTree = "<group>"; };
+		5EA9E6AD16AE1AA5008DC4E4 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
+		5EA9E6AE16AE1AA5008DC4E4 /* grid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grid@2x.png"; sourceTree = "<group>"; };
+		5EA9E6B216AE1BC6008DC4E4 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
+		5EA9E6B316AE1BC6008DC4E4 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5EA9E64716AE1203008DC4E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EA9E6A516AE1644008DC4E4 /* QuartzCore.framework in Frameworks */,
+				5EA9E64F16AE1203008DC4E4 /* UIKit.framework in Frameworks */,
+				5EA9E65116AE1203008DC4E4 /* Foundation.framework in Frameworks */,
+				5EA9E65316AE1203008DC4E4 /* CoreGraphics.framework in Frameworks */,
+				5EA9E65516AE1203008DC4E4 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5EA9E67816AE1204008DC4E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EA9E67E16AE1204008DC4E4 /* SenTestingKit.framework in Frameworks */,
+				5EA9E67F16AE1204008DC4E4 /* UIKit.framework in Frameworks */,
+				5EA9E68016AE1204008DC4E4 /* Foundation.framework in Frameworks */,
+				5EA9E68116AE1204008DC4E4 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5EA9E63F16AE1203008DC4E4 = {
+			isa = PBXGroup;
+			children = (
+				5EA9E65616AE1203008DC4E4 /* Whiskey List */,
+				5EA9E68416AE1204008DC4E4 /* Whiskey ListTests */,
+				5EA9E64D16AE1203008DC4E4 /* Frameworks */,
+				5EA9E64B16AE1203008DC4E4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5EA9E64B16AE1203008DC4E4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E64A16AE1203008DC4E4 /* Whiskey List.app */,
+				5EA9E67C16AE1204008DC4E4 /* Whiskey ListTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5EA9E64D16AE1203008DC4E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E6A416AE1644008DC4E4 /* QuartzCore.framework */,
+				5EA9E64E16AE1203008DC4E4 /* UIKit.framework */,
+				5EA9E65016AE1203008DC4E4 /* Foundation.framework */,
+				5EA9E65216AE1203008DC4E4 /* CoreGraphics.framework */,
+				5EA9E65416AE1203008DC4E4 /* CoreData.framework */,
+				5EA9E67D16AE1204008DC4E4 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5EA9E65616AE1203008DC4E4 /* Whiskey List */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E65F16AE1203008DC4E4 /* AFAppDelegate.h */,
+				5EA9E66016AE1203008DC4E4 /* AFAppDelegate.m */,
+				5EA9E6B116AE1AAA008DC4E4 /* Images */,
+				5EA9E69E16AE15B9008DC4E4 /* Controllers */,
+				5EA9E6A916AE1795008DC4E4 /* Collection View Extensions */,
+				5EA9E6A216AE15D4008DC4E4 /* Views */,
+				5EA9E6A316AE15DC008DC4E4 /* Model */,
+				5EA9E65716AE1203008DC4E4 /* Supporting Files */,
+			);
+			path = "Whiskey List";
+			sourceTree = "<group>";
+		};
+		5EA9E65716AE1203008DC4E4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E65816AE1203008DC4E4 /* Whiskey List-Info.plist */,
+				5EA9E65916AE1203008DC4E4 /* InfoPlist.strings */,
+				5EA9E65C16AE1203008DC4E4 /* main.m */,
+				5EA9E65E16AE1203008DC4E4 /* Whiskey List-Prefix.pch */,
+				5EA9E66216AE1203008DC4E4 /* Default.png */,
+				5EA9E66416AE1203008DC4E4 /* Default@2x.png */,
+				5EA9E66616AE1203008DC4E4 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5EA9E68416AE1204008DC4E4 /* Whiskey ListTests */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E68A16AE1204008DC4E4 /* Whiskey_ListTests.h */,
+				5EA9E68B16AE1204008DC4E4 /* Whiskey_ListTests.m */,
+				5EA9E68516AE1204008DC4E4 /* Supporting Files */,
+			);
+			path = "Whiskey ListTests";
+			sourceTree = "<group>";
+		};
+		5EA9E68516AE1204008DC4E4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E68616AE1204008DC4E4 /* Whiskey ListTests-Info.plist */,
+				5EA9E68716AE1204008DC4E4 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5EA9E69E16AE15B9008DC4E4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E66B16AE1203008DC4E4 /* AFMasterViewController.h */,
+				5EA9E66C16AE1204008DC4E4 /* AFMasterViewController.m */,
+				5EA9E66E16AE1204008DC4E4 /* AFDetailViewController.h */,
+				5EA9E66F16AE1204008DC4E4 /* AFDetailViewController.m */,
+				5EA9E67416AE1204008DC4E4 /* AFDetailViewController.xib */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		5EA9E6A216AE15D4008DC4E4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E69F16AE15CE008DC4E4 /* AFCollectionViewCell.h */,
+				5EA9E6A016AE15CE008DC4E4 /* AFCollectionViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		5EA9E6A316AE15DC008DC4E4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E66816AE1203008DC4E4 /* Whiskey_List.xcdatamodeld */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		5EA9E6A916AE1795008DC4E4 /* Collection View Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E6A616AE178F008DC4E4 /* AFColelctionViewFlowLayout.h */,
+				5EA9E6A716AE178F008DC4E4 /* AFColelctionViewFlowLayout.m */,
+				5EA9E6AA16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.h */,
+				5EA9E6AB16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.m */,
+			);
+			name = "Collection View Extensions";
+			sourceTree = "<group>";
+		};
+		5EA9E6B116AE1AAA008DC4E4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E6AD16AE1AA5008DC4E4 /* grid.png */,
+				5EA9E6AE16AE1AA5008DC4E4 /* grid@2x.png */,
+				5EA9E6B216AE1BC6008DC4E4 /* list@2x.png */,
+				5EA9E6B316AE1BC6008DC4E4 /* list.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5EA9E64916AE1203008DC4E4 /* Whiskey List */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5EA9E68F16AE1204008DC4E4 /* Build configuration list for PBXNativeTarget "Whiskey List" */;
+			buildPhases = (
+				5EA9E64616AE1203008DC4E4 /* Sources */,
+				5EA9E64716AE1203008DC4E4 /* Frameworks */,
+				5EA9E64816AE1203008DC4E4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Whiskey List";
+			productName = "Whiskey List";
+			productReference = 5EA9E64A16AE1203008DC4E4 /* Whiskey List.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5EA9E67B16AE1204008DC4E4 /* Whiskey ListTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5EA9E69216AE1204008DC4E4 /* Build configuration list for PBXNativeTarget "Whiskey ListTests" */;
+			buildPhases = (
+				5EA9E67716AE1204008DC4E4 /* Sources */,
+				5EA9E67816AE1204008DC4E4 /* Frameworks */,
+				5EA9E67916AE1204008DC4E4 /* Resources */,
+				5EA9E67A16AE1204008DC4E4 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5EA9E68316AE1204008DC4E4 /* PBXTargetDependency */,
+			);
+			name = "Whiskey ListTests";
+			productName = "Whiskey ListTests";
+			productReference = 5EA9E67C16AE1204008DC4E4 /* Whiskey ListTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5EA9E64116AE1203008DC4E4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = AF;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Ash Furrow";
+			};
+			buildConfigurationList = 5EA9E64416AE1203008DC4E4 /* Build configuration list for PBXProject "Whiskey List" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 5EA9E63F16AE1203008DC4E4;
+			productRefGroup = 5EA9E64B16AE1203008DC4E4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5EA9E64916AE1203008DC4E4 /* Whiskey List */,
+				5EA9E67B16AE1204008DC4E4 /* Whiskey ListTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5EA9E64816AE1203008DC4E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EA9E65B16AE1203008DC4E4 /* InfoPlist.strings in Resources */,
+				5EA9E66316AE1203008DC4E4 /* Default.png in Resources */,
+				5EA9E66516AE1203008DC4E4 /* Default@2x.png in Resources */,
+				5EA9E66716AE1203008DC4E4 /* Default-568h@2x.png in Resources */,
+				5EA9E67616AE1204008DC4E4 /* AFDetailViewController.xib in Resources */,
+				5EA9E6AF16AE1AA6008DC4E4 /* grid.png in Resources */,
+				5EA9E6B016AE1AA6008DC4E4 /* grid@2x.png in Resources */,
+				5EA9E6B416AE1BC6008DC4E4 /* list@2x.png in Resources */,
+				5EA9E6B516AE1BC6008DC4E4 /* list.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5EA9E67916AE1204008DC4E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EA9E68916AE1204008DC4E4 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5EA9E67A16AE1204008DC4E4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5EA9E64616AE1203008DC4E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EA9E65D16AE1203008DC4E4 /* main.m in Sources */,
+				5EA9E66116AE1203008DC4E4 /* AFAppDelegate.m in Sources */,
+				5EA9E66A16AE1203008DC4E4 /* Whiskey_List.xcdatamodeld in Sources */,
+				5EA9E66D16AE1204008DC4E4 /* AFMasterViewController.m in Sources */,
+				5EA9E67016AE1204008DC4E4 /* AFDetailViewController.m in Sources */,
+				5EA9E6A116AE15CE008DC4E4 /* AFCollectionViewCell.m in Sources */,
+				5EA9E6A816AE178F008DC4E4 /* AFColelctionViewFlowLayout.m in Sources */,
+				5EA9E6AC16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5EA9E67716AE1204008DC4E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EA9E68C16AE1204008DC4E4 /* Whiskey_ListTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5EA9E68316AE1204008DC4E4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5EA9E64916AE1203008DC4E4 /* Whiskey List */;
+			targetProxy = 5EA9E68216AE1204008DC4E4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5EA9E65916AE1203008DC4E4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5EA9E65A16AE1203008DC4E4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		5EA9E67416AE1204008DC4E4 /* AFDetailViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5EA9E67516AE1204008DC4E4 /* en */,
+			);
+			name = AFDetailViewController.xib;
+			sourceTree = "<group>";
+		};
+		5EA9E68716AE1204008DC4E4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5EA9E68816AE1204008DC4E4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5EA9E68D16AE1204008DC4E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		5EA9E68E16AE1204008DC4E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5EA9E69016AE1204008DC4E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Whiskey List/Whiskey List-Prefix.pch";
+				INFOPLIST_FILE = "Whiskey List/Whiskey List-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		5EA9E69116AE1204008DC4E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Whiskey List/Whiskey List-Prefix.pch";
+				INFOPLIST_FILE = "Whiskey List/Whiskey List-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		5EA9E69316AE1204008DC4E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Whiskey List.app/Whiskey List";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Whiskey List/Whiskey List-Prefix.pch";
+				INFOPLIST_FILE = "Whiskey ListTests/Whiskey ListTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		5EA9E69416AE1204008DC4E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Whiskey List.app/Whiskey List";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Whiskey List/Whiskey List-Prefix.pch";
+				INFOPLIST_FILE = "Whiskey ListTests/Whiskey ListTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5EA9E64416AE1203008DC4E4 /* Build configuration list for PBXProject "Whiskey List" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5EA9E68D16AE1204008DC4E4 /* Debug */,
+				5EA9E68E16AE1204008DC4E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5EA9E68F16AE1204008DC4E4 /* Build configuration list for PBXNativeTarget "Whiskey List" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5EA9E69016AE1204008DC4E4 /* Debug */,
+				5EA9E69116AE1204008DC4E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5EA9E69216AE1204008DC4E4 /* Build configuration list for PBXNativeTarget "Whiskey ListTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5EA9E69316AE1204008DC4E4 /* Debug */,
+				5EA9E69416AE1204008DC4E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5EA9E66816AE1203008DC4E4 /* Whiskey_List.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5EA9E66916AE1203008DC4E4 /* Whiskey_List.xcdatamodel */,
+			);
+			currentVersion = 5EA9E66916AE1203008DC4E4 /* Whiskey_List.xcdatamodel */;
+			path = Whiskey_List.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 5EA9E64116AE1203008DC4E4 /* Project object */;
+}
