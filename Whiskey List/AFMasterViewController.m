@@ -60,6 +60,8 @@ static NSString *CellIdentifier = @"CellIdentifier";
     
     _objectChanges = [NSMutableArray array];
     _sectionChanges = [NSMutableArray array];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modelChanged:) name:AFModelRelationWasUpdatedNotification object:nil];
 }
 
 - (void)viewDidLoad
@@ -105,6 +107,19 @@ static NSString *CellIdentifier = @"CellIdentifier";
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
+#pragma mark - NSNotificationCenter Methods
+
+-(void)modelChanged:(NSNotification *)notification
+{
+    if (!notification.object) return;
+    
+    NSIndexPath *indexPath = [self.fetchedResultsController indexPathForObject:notification.object];
+    
+    if (!indexPath) return; 
+    
+    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+}
+
 #pragma mark - Fetched Results Controller
 
 -(NSFetchedResultsController *)nonCachedFetchedResultsController
@@ -143,6 +158,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
     
     [cell setName:[object valueForKey:@"name"]];
     [cell setRegion:[object valueForKeyPath:@"region.name"]];
+    [cell setImage:[UIImage imageWithData:[object valueForKeyPath:@"image.imageData"]]];
 }
 
 -(void)setupNavigationItem

@@ -9,6 +9,8 @@
 #import "AFDetailViewController.h"
 #import "AFRegion.h"
 
+NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpdatedNotification";
+
 @interface AFDetailViewController ()
 - (void)configureView;
 @end
@@ -87,6 +89,52 @@
 
 #pragma mark - User Interaction Methods
 
+#pragma mark IBActions
+
+-(void)userDidTapEditPhotoButton:(id)sender
+{
+    BOOL hasExistingPhoto = [self.detailItem valueForKeyPath:@"image.imageData"] != nil;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        //If this device has a camera, then present an action sheet
+        UIActionSheet *actionSheet;
+        
+        if (hasExistingPhoto)
+        {
+            actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Delete Photo", @"") otherButtonTitles:NSLocalizedString(@"Take a Photo", @""), NSLocalizedString(@"Choose Existing Photo", @""), nil];
+        }
+        else
+        {
+            //If this device has a camera, then present an action sheet
+            actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Take a Photo", @""), NSLocalizedString(@"Choose Existing Photo", @""), nil];
+        }
+
+        [actionSheet showInView:self.view];
+    }
+    else
+    {
+        if (hasExistingPhoto)
+        {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Delete Photo", @"") otherButtonTitles:NSLocalizedString(@"Choose Existing Photo", @""), nil];
+            
+            [actionSheet showInView:self.view];
+        }
+        else
+        {
+            //This device has no camera. Present the image picker now
+            UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+            pickerController.delegate = self;
+            pickerController.allowsEditing = YES;
+            pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            
+            [self presentViewController:pickerController animated:YES completion:nil];
+        }
+    }
+}
+
+#pragma mark Others
+
 -(void)userDidCancelNewItem:(id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
@@ -113,6 +161,17 @@
 
 #pragma mark - Private Custom Methods
 
+-(void)saveContext
+{
+    // Save the context.
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:AFModelRelationWasUpdatedNotification object:self.detailItem];
+}
+
 - (void)configureView
 {
     if (self.detailItem && !self.creatingNewEntity)
@@ -123,6 +182,8 @@
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
         self.editing = NO;
+        
+        self.whiskeyImageView.image = [UIImage imageWithData:[self.detailItem valueForKeyPath:@"image.imageData"]];
         
         self.title = NSLocalizedString(@"Info", @"Detail edit default title");
     }
@@ -181,11 +242,7 @@
     [newWhiskeyImage setValue:newWhiskeyObject forKey:@"whiskey"];
     [newWhiskeyObject setValue:newWhiskeyImage forKey:@"image"];
     
-    // Save the context.
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    }
+    [self saveContext];
 }
 
 -(void)updateItem
@@ -194,5 +251,75 @@
     [self.detailItem setValue:[self findOrCreateRegion:self.regionTextField.text] forKey:@"region"];
     [[self.detailItem valueForKey:@"region"] addWhiskiesObject:self.detailItem];
 }
-							
+
+#pragma mark - UIActionSheetDelegate methods
+-(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.destructiveButtonIndex)
+    {
+        self.whiskeyImageView.image = nil;
+        [[self.detailItem valueForKey:@"image"] setValue:nil forKey:@"imageData"];
+        [self saveContext];
+        
+        return;
+    }
+    else if (buttonIndex == actionSheet.cancelButtonIndex)
+    {
+        return;
+    }
+    
+    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+    pickerController.delegate = self;
+    pickerController.allowsEditing = YES;
+    
+    if (buttonIndex == actionSheet.firstOtherButtonIndex)
+    {
+		if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+		{
+			//Take new photo
+			pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+			pickerController.showsCameraControls = YES;
+			if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront])
+			{
+				pickerController.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+			}
+		}
+		else
+		{
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Take Photo", @"")
+															message:NSLocalizedString(@"Unable to access the camera.", @"")
+														   delegate:nil
+												  cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
+												  otherButtonTitles:nil];
+			[alert show];
+			return;
+		}
+    }
+    else if (buttonIndex == 1)
+    {
+        //Choose existing photo
+        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    
+    [self presentViewController:pickerController animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerController methods
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *newImage = info[UIImagePickerControllerEditedImage];
+    
+    self.whiskeyImageView.image = newImage;
+    
+    [[self.detailItem valueForKey:@"image"] setValue:UIImageJPEGRepresentation(newImage, 0.75f) forKey:@"imageData"];
+    [self saveContext];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AFDetailViewController : UIViewController
+extern NSString * const AFModelRelationWasUpdatedNotification;
+
+@interface AFDetailViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) id detailItem;
 
@@ -17,5 +19,9 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *regionTextField;
+
+@property (weak, nonatomic) IBOutlet UIImageView *whiskeyImageView;
+
+-(IBAction)userDidTapEditPhotoButton:(id)sender;
 
 @end
