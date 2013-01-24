@@ -7,9 +7,11 @@
 //
 
 #import "AFDetailViewController.h"
-#import "AFRegion.h"
-#import "AFPhotoButton.h"
+#import "AFRegionSelectViewController.h"
 
+#import "AFRegion.h"
+
+#import "AFPhotoButton.h"
 #import "AFNameSectionCell.h"
 
 enum {
@@ -27,6 +29,13 @@ NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpd
 
 static NSString *NameRowCellIdentifier = @"NameRowCell";
 static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
+
+@interface AFDetailViewController ()
+
+@property (nonatomic, strong) UIImage *savedImage;
+@property (nonatomic, strong) AFRegion *savedRegion;
+
+@end
 
 @implementation AFDetailViewController
 
@@ -86,7 +95,7 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
         
         cell.enableTextField = NO;
         
-        NSString *regionName = [self.detailItem valueForKeyPath:@"region.name"];
+        NSString *regionName = self.savedRegion.name;
         
         if (regionName.length > 0)
         {
@@ -115,6 +124,21 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleNone;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.editing)
+    {
+        if (indexPath.row == AFDetailViewControllerNameSectionRegionRow && indexPath.section == AFDetailViewControllerNameSection)
+        {
+            AFRegionSelectViewController *viewController = [[AFRegionSelectViewController alloc] initWithStyle:UITableViewStylePlain];
+            viewController.delegate = self;
+            viewController.region = self.savedRegion;
+            viewController.managedObjectContext = self.managedObjectContext;
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+    }
 }
 
 #pragma mark - Overridden Properties
@@ -156,6 +180,7 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 - (void)setDetailItem:(NSManagedObject *)newDetailItem
 {
     if (_detailItem != newDetailItem) {
+        self.savedRegion = [newDetailItem valueForKey:@"region"];
         _detailItem = newDetailItem;
         self.managedObjectContext = newDetailItem.managedObjectContext;
         
@@ -245,13 +270,6 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     return [(AFNameSectionCell *)[self.tableView cellForRowAtIndexPath:indexPath] textFieldText];
 }
 
--(NSString *)regionString
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:AFDetailViewControllerNameSectionRegionRow inSection:AFDetailViewControllerNameSection];
-    
-    return [(AFNameSectionCell *)[self.tableView cellForRowAtIndexPath:indexPath] textFieldText];
-}
-
 -(void)saveContext
 {
     // Save the context.
@@ -302,46 +320,46 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     return YES;
 }
 
--(AFRegion *)findOrCreateRegion:(NSString *)regionName
-{    
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", regionName];
-    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
-    
-    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-    
-    if (results.count > 0)
-    {
-        return [results objectAtIndex:0];
-    }
-    else
-    {
-        AFRegion *newRegion = [NSEntityDescription insertNewObjectForEntityForName:@"Region" inManagedObjectContext:self.managedObjectContext];
-        [newRegion setValue:regionName forKey:@"name"];
-        [newRegion setValue:[regionName lowercaseString] forKey:@"canonicalName"];
-        return newRegion;
-    }
-}
+//-(AFRegion *)findOrCreateRegion:(NSString *)regionName
+//{    
+//    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
+//    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", regionName];
+//    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+//    
+//    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+//    
+//    if (results.count > 0)
+//    {
+//        return [results objectAtIndex:0];
+//    }
+//    else
+//    {
+//        AFRegion *newRegion = [NSEntityDescription insertNewObjectForEntityForName:@"Region" inManagedObjectContext:self.managedObjectContext];
+//        [newRegion setValue:regionName forKey:@"name"];
+//        [newRegion setValue:[regionName lowercaseString] forKey:@"canonicalName"];
+//        return newRegion;
+//    }
+//}
 
 - (void)insertNewObject
 {
     NSManagedObject *newWhiskeyObject = [NSEntityDescription insertNewObjectForEntityForName:@"Whiskey" inManagedObjectContext:self.managedObjectContext];
     
     NSString *name = [self nameString];
-    NSString *region = [self regionString];
     
     [newWhiskeyObject setValue:name forKey:@"name"];
     [newWhiskeyObject setValue:[name lowercaseString] forKey:@"canonicalName"];
     
-    if (region.length > 0)
+    if (self.savedRegion)
     {
-        [newWhiskeyObject setValue:[self findOrCreateRegion:region] forKey:@"region"];
+        [newWhiskeyObject setValue:self.savedRegion forKey:@"region"];
         [[newWhiskeyObject valueForKey:@"region"] addWhiskiesObject:newWhiskeyObject];
     }
     
     NSManagedObject *newWhiskeyImage = [NSEntityDescription insertNewObjectForEntityForName:@"WhiskeyImage" inManagedObjectContext:self.managedObjectContext];
     [newWhiskeyImage setValue:newWhiskeyObject forKey:@"whiskey"];
     [newWhiskeyObject setValue:newWhiskeyImage forKey:@"image"];
+    [newWhiskeyImage setValue:UIImageJPEGRepresentation(self.savedImage, 0.75f) forKey:@"imageData"];
     
     [self saveContext];
 }
@@ -350,7 +368,8 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 {
     [self.detailItem setValue:[self nameString] forKey:@"name"];
     [self.detailItem setValue:[[self nameString] lowercaseString] forKey:@"canonicalName"];
-    [self.detailItem setValue:[self findOrCreateRegion:[self regionString]] forKey:@"region"];
+    [[self.detailItem valueForKey:@"region"] removeWhiskiesObject:self.detailItem];
+    [self.detailItem setValue:self.savedRegion forKey:@"region"];
     [[self.detailItem valueForKey:@"region"] addWhiskiesObject:self.detailItem];
 }
 
@@ -411,17 +430,26 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    UIImage *newImage = info[UIImagePickerControllerEditedImage];
+    self.savedImage = info[UIImagePickerControllerEditedImage];
     
-    [self.photoButton setPhoto:newImage];
+    [self.photoButton setPhoto:self.savedImage];
     
-    [[self.detailItem valueForKey:@"image"] setValue:UIImageJPEGRepresentation(newImage, 0.75f) forKey:@"imageData"];
+    [[self.detailItem valueForKey:@"image"] setValue:UIImageJPEGRepresentation(self.savedImage, 0.75f) forKey:@"imageData"];
     [self saveContext];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - AFRegionSelectViewControllerDelegate Methods
+
+-(void)regionSelectViewController:(AFRegionSelectViewController *)controller didSelectRegion:(AFRegion *)region
+{
+    self.savedRegion = region;
+    [self.navigationController popToViewController:self animated:YES];
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:AFDetailViewControllerNameSectionRegionRow inSection:AFDetailViewControllerNameSection]] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 @end

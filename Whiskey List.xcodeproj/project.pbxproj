@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5E97E11716B1A169004E43B5 /* AFPhotoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E97E11616B1A169004E43B5 /* AFPhotoButton.m */; };
+		5E97E11B16B1BFF3004E43B5 /* AFRegionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E97E11A16B1BFF3004E43B5 /* AFRegionSelectViewController.m */; };
 		5EA77C6516AF33FA00C1C62A /* AFNameSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */; };
 		5EA9E64F16AE1203008DC4E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E64E16AE1203008DC4E4 /* UIKit.framework */; };
 		5EA9E65116AE1203008DC4E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65016AE1203008DC4E4 /* Foundation.framework */; };
@@ -54,6 +55,8 @@
 /* Begin PBXFileReference section */
 		5E97E11516B1A169004E43B5 /* AFPhotoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPhotoButton.h; sourceTree = "<group>"; };
 		5E97E11616B1A169004E43B5 /* AFPhotoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPhotoButton.m; sourceTree = "<group>"; };
+		5E97E11916B1BFF3004E43B5 /* AFRegionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFRegionSelectViewController.h; sourceTree = "<group>"; };
+		5E97E11A16B1BFF3004E43B5 /* AFRegionSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRegionSelectViewController.m; sourceTree = "<group>"; };
 		5EA77C6316AF33FA00C1C62A /* AFNameSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNameSectionCell.h; sourceTree = "<group>"; };
 		5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNameSectionCell.m; sourceTree = "<group>"; };
 		5EA9E64A16AE1203008DC4E4 /* Whiskey List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Whiskey List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +130,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E97E11C16B1BFF8004E43B5 /* Region Selection */ = {
+			isa = PBXGroup;
+			children = (
+				5E97E11916B1BFF3004E43B5 /* AFRegionSelectViewController.h */,
+				5E97E11A16B1BFF3004E43B5 /* AFRegionSelectViewController.m */,
+			);
+			name = "Region Selection";
+			sourceTree = "<group>";
+		};
 		5EA77C6216AF33E600C1C62A /* Detail View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +235,7 @@
 				5EA9E6BF16AE2A30008DC4E4 /* AFNavigationController.m */,
 				5EA9E6BA16AE2140008DC4E4 /* Root View Controller */,
 				5EA77C6216AF33E600C1C62A /* Detail View Controller */,
+				5E97E11C16B1BFF8004E43B5 /* Region Selection */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -410,6 +423,7 @@
 				5EA9E6C316AE3A32008DC4E4 /* AFRegion.m in Sources */,
 				5EA77C6516AF33FA00C1C62A /* AFNameSectionCell.m in Sources */,
 				5E97E11716B1A169004E43B5 /* AFPhotoButton.m in Sources */,
+				5E97E11B16B1BFF3004E43B5 /* AFRegionSelectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

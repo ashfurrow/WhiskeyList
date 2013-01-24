@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class AFPhotoButton;
+@protocol AFRegionSelectViewControllerDelegate;
 
 extern NSString * const AFModelRelationWasUpdatedNotification;
 
-@interface AFDetailViewController : UITableViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
+@interface AFDetailViewController : UITableViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, AFRegionSelectViewControllerDelegate>
 
 @property (strong, nonatomic) id detailItem;
 

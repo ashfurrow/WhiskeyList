@@ -10,6 +10,9 @@
 
 #import "AFMasterViewController.h"
 #import "AFNavigationController.h"
+#import "AFRegion.h"
+
+static NSString *kFirstRunKey = @"first run";
 
 @implementation AFAppDelegate
 
@@ -26,11 +29,20 @@
     masterViewController.wantsFullScreenLayout = YES;
     self.navigationController = [[AFNavigationController alloc] initWithRootViewController:masterViewController];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.translucent = NO;
     self.navigationController.wantsFullScreenLayout = YES;
     masterViewController.managedObjectContext = self.managedObjectContext;
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:kFirstRunKey])
+    {
+        [defaults setBool:YES forKey:kFirstRunKey];
+        
+        [self setDefaultCoreDataContents];
+    }
+    
     return YES;
 }
 
@@ -155,6 +167,24 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+#pragma mark - Private Custom Methods
+
+-(void)setDefaultCoreDataContents
+{
+    NSLog(@"Inserting default Core Data contents.");
+    
+    NSArray *regionNames = @[@"Islay", @"Lowland", @"Speyside", @"Highland", @"Campbelton"];
+    
+    for (NSString *regionName in regionNames)
+    {
+        AFRegion *newRegion = [NSEntityDescription insertNewObjectForEntityForName:@"Region" inManagedObjectContext:self.managedObjectContext];
+        [newRegion setValue:regionName forKey:@"name"];
+        [newRegion setValue:[regionName lowercaseString] forKey:@"canonicalName"];
+    }
+    
+    [self.managedObjectContext save:nil];
 }
 
 @end

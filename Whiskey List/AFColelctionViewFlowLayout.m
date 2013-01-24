@@ -36,11 +36,11 @@
 {
     if (self.layoutMode == AFCollectionViewLayoutAttributesLayoutModeGrid)
     {
-        self.sectionInset = UIEdgeInsetsMake(13.0f + 44.0f + CGRectGetHeight([[UIApplication sharedApplication] statusBarFrame]), 13.0f, 13.0f, 13.0f);
+        self.sectionInset = UIEdgeInsetsMake(13.0f, 13.0f, 13.0f, 13.0f);
     }
     else if (self.layoutMode == AFCollectionViewLayoutAttributesLayoutModeList)
     {
-        self.sectionInset = UIEdgeInsetsMake(10.0f + 44.0f + CGRectGetHeight([[UIApplication sharedApplication] statusBarFrame]), 10.0f, 10.0f, 10.0f);
+        self.sectionInset = UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
     }
 }
 
