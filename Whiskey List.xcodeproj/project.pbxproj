@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5EA77C6516AF33FA00C1C62A /* AFNameSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */; };
 		5EA9E64F16AE1203008DC4E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E64E16AE1203008DC4E4 /* UIKit.framework */; };
 		5EA9E65116AE1203008DC4E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65016AE1203008DC4E4 /* Foundation.framework */; };
 		5EA9E65316AE1203008DC4E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65216AE1203008DC4E4 /* CoreGraphics.framework */; };
@@ -20,7 +21,6 @@
 		5EA9E66A16AE1203008DC4E4 /* Whiskey_List.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E66816AE1203008DC4E4 /* Whiskey_List.xcdatamodeld */; };
 		5EA9E66D16AE1204008DC4E4 /* AFMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E66C16AE1204008DC4E4 /* AFMasterViewController.m */; };
 		5EA9E67016AE1204008DC4E4 /* AFDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E66F16AE1204008DC4E4 /* AFDetailViewController.m */; };
-		5EA9E67616AE1204008DC4E4 /* AFDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E67416AE1204008DC4E4 /* AFDetailViewController.xib */; };
 		5EA9E67E16AE1204008DC4E4 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E67D16AE1204008DC4E4 /* SenTestingKit.framework */; };
 		5EA9E67F16AE1204008DC4E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E64E16AE1203008DC4E4 /* UIKit.framework */; };
 		5EA9E68016AE1204008DC4E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65016AE1203008DC4E4 /* Foundation.framework */; };
@@ -51,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5EA77C6316AF33FA00C1C62A /* AFNameSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNameSectionCell.h; sourceTree = "<group>"; };
+		5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNameSectionCell.m; sourceTree = "<group>"; };
 		5EA9E64A16AE1203008DC4E4 /* Whiskey List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Whiskey List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EA9E64E16AE1203008DC4E4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5EA9E65016AE1203008DC4E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -70,7 +72,6 @@
 		5EA9E66C16AE1204008DC4E4 /* AFMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFMasterViewController.m; sourceTree = "<group>"; };
 		5EA9E66E16AE1204008DC4E4 /* AFDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFDetailViewController.h; sourceTree = "<group>"; };
 		5EA9E66F16AE1204008DC4E4 /* AFDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AFDetailViewController.m; sourceTree = "<group>"; };
-		5EA9E67516AE1204008DC4E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AFDetailViewController.xib; sourceTree = "<group>"; };
 		5EA9E67C16AE1204008DC4E4 /* Whiskey ListTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Whiskey ListTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EA9E67D16AE1204008DC4E4 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		5EA9E68616AE1204008DC4E4 /* Whiskey ListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Whiskey ListTests-Info.plist"; sourceTree = "<group>"; };
@@ -123,6 +124,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5EA77C6216AF33E600C1C62A /* Detail View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5EA9E66E16AE1204008DC4E4 /* AFDetailViewController.h */,
+				5EA9E66F16AE1204008DC4E4 /* AFDetailViewController.m */,
+				5EA77C6316AF33FA00C1C62A /* AFNameSectionCell.h */,
+				5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */,
+			);
+			name = "Detail View Controller";
+			sourceTree = "<group>";
+		};
 		5EA9E63F16AE1203008DC4E4 = {
 			isa = PBXGroup;
 			children = (
@@ -209,9 +221,7 @@
 				5EA9E6BE16AE2A30008DC4E4 /* AFNavigationController.h */,
 				5EA9E6BF16AE2A30008DC4E4 /* AFNavigationController.m */,
 				5EA9E6BA16AE2140008DC4E4 /* Root View Controller */,
-				5EA9E66E16AE1204008DC4E4 /* AFDetailViewController.h */,
-				5EA9E66F16AE1204008DC4E4 /* AFDetailViewController.m */,
-				5EA9E67416AE1204008DC4E4 /* AFDetailViewController.xib */,
+				5EA77C6216AF33E600C1C62A /* Detail View Controller */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -344,7 +354,6 @@
 				5EA9E66316AE1203008DC4E4 /* Default.png in Resources */,
 				5EA9E66516AE1203008DC4E4 /* Default@2x.png in Resources */,
 				5EA9E66716AE1203008DC4E4 /* Default-568h@2x.png in Resources */,
-				5EA9E67616AE1204008DC4E4 /* AFDetailViewController.xib in Resources */,
 				5EA9E6AF16AE1AA6008DC4E4 /* grid.png in Resources */,
 				5EA9E6B016AE1AA6008DC4E4 /* grid@2x.png in Resources */,
 				5EA9E6B416AE1BC6008DC4E4 /* list@2x.png in Resources */,
@@ -394,6 +403,7 @@
 				5EA9E6BD16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m in Sources */,
 				5EA9E6C016AE2A31008DC4E4 /* AFNavigationController.m in Sources */,
 				5EA9E6C316AE3A32008DC4E4 /* AFRegion.m in Sources */,
+				5EA77C6516AF33FA00C1C62A /* AFNameSectionCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,14 +432,6 @@
 				5EA9E65A16AE1203008DC4E4 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		5EA9E67416AE1204008DC4E4 /* AFDetailViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5EA9E67516AE1204008DC4E4 /* en */,
-			);
-			name = AFDetailViewController.xib;
 			sourceTree = "<group>";
 		};
 		5EA9E68716AE1204008DC4E4 /* InfoPlist.strings */ = {

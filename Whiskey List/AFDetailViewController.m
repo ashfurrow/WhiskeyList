@@ -9,11 +9,22 @@
 #import "AFDetailViewController.h"
 #import "AFRegion.h"
 
+#import "AFNameSectionCell.h"
+
+enum {
+    AFDetailViewControllerNameSection = 0,
+    AFDetailViewControllerNumberOfSections
+};
+
+enum {
+    AFDetailViewControllerNameSectionNameRow = 0,
+    AFDetailViewControllerNameSectionRegionRow,
+    AFDetailViewControllerNameSectionNumberOfRows
+};
+
 NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpdatedNotification";
 
-@interface AFDetailViewController ()
-- (void)configureView;
-@end
+static NSString *NameSectionCellIdentifier = @"NameSectionCell";
 
 @implementation AFDetailViewController
 
@@ -22,12 +33,53 @@ NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpd
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    
+    [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:NameSectionCellIdentifier];
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - Table View Methods
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // Return the number of sections.
+    
+    return AFDetailViewControllerNumberOfSections;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    
+    if (section == AFDetailViewControllerNameSection)
+    {
+        return AFDetailViewControllerNameSectionNumberOfRows;
+    }
+    
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AFNameSectionCell *cell = (AFNameSectionCell *)[tableView dequeueReusableCellWithIdentifier:NameSectionCellIdentifier forIndexPath:indexPath];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if (indexPath.row == AFDetailViewControllerNameSectionNameRow)
+    {
+        cell.textFieldText = [self.detailItem valueForKey:@"name"];
+        cell.textFieldPlaceholder = NSLocalizedString(@"Whiskey Name", @"");
+    }
+    else if (indexPath.row == AFDetailViewControllerNameSectionRegionRow)
+    {
+        cell.textFieldText = [self.detailItem valueForKeyPath:@"region.name"];
+        cell.textFieldPlaceholder = NSLocalizedString(@"Region Name", @"");
+    }
+    
+    return cell;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
 }
 
 #pragma mark - Overridden Properties
@@ -38,14 +90,11 @@ NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpd
     
     if (editing)
     {
-        self.nameTextField.enabled = YES;
-        self.regionTextField.enabled = YES;
-        
+        self.photoButton.enabled = YES;
     }
     else
     {
-        self.nameTextField.enabled = NO;
-        self.regionTextField.enabled = NO;
+        self.photoButton.enabled = NO;
         
         if (self.detailItem)
         {
@@ -66,13 +115,6 @@ NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpd
         {
             [self.navigationItem setLeftBarButtonItem:nil animated:YES];
         }
-    }
-    
-    // We always want to allow editing when creating a new entity
-    if (self.creatingNewEntity)
-    {
-        self.nameTextField.enabled = YES;
-        self.regionTextField.enabled = YES;
     }
 }
 
@@ -161,6 +203,20 @@ NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpd
 
 #pragma mark - Private Custom Methods
 
+-(NSString *)nameString
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:AFDetailViewControllerNameSectionNameRow inSection:AFDetailViewControllerNameSection];
+    
+    return [(AFNameSectionCell *)[self.tableView cellForRowAtIndexPath:indexPath] textFieldText];
+}
+
+-(NSString *)regionString
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:AFDetailViewControllerNameSectionRegionRow inSection:AFDetailViewControllerNameSection];
+    
+    return [(AFNameSectionCell *)[self.tableView cellForRowAtIndexPath:indexPath] textFieldText];
+}
+
 -(void)saveContext
 {
     // Save the context.
@@ -174,10 +230,13 @@ NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpd
 
 - (void)configureView
 {
+    self.photoButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.photoButton.frame = CGRectMake(10, 10, 90, 90);
+    [self.photoButton addTarget:self action:@selector(userDidTapEditPhotoButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.tableView addSubview:self.photoButton];
+    
     if (self.detailItem && !self.creatingNewEntity)
     {
-        self.nameTextField.text = [self.detailItem valueForKey:@"name"];
-        self.regionTextField.text = [self.detailItem valueForKeyPath:@"region.name"];
         self.title = [self.detailItem valueForKey:@"name"];
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -194,15 +253,15 @@ NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpd
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(userDidCancelNewItem:)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(userDidFinish:)];
         
-        self.editing = NO;
+        self.editing = YES;
     }
 }
 
 -(BOOL)validate
 {
-    if ([[self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0)
+    if ([[[self nameString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0)
         return NO;
-    if ([[self.regionTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0)
+    if ([[[self regionString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0)
         return NO;
     
     return YES;
@@ -233,9 +292,12 @@ NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpd
 {
     NSManagedObject *newWhiskeyObject = [NSEntityDescription insertNewObjectForEntityForName:@"Whiskey" inManagedObjectContext:self.managedObjectContext];
     
-    [newWhiskeyObject setValue:self.nameTextField.text forKey:@"name"];
-    [newWhiskeyObject setValue:[self.nameTextField.text lowercaseString] forKey:@"canonicalName"];
-    [newWhiskeyObject setValue:[self findOrCreateRegion:self.regionTextField.text] forKey:@"region"];
+    NSString *name = [self nameString];
+    NSString *region = [self regionString];
+    
+    [newWhiskeyObject setValue:name forKey:@"name"];
+    [newWhiskeyObject setValue:[name lowercaseString] forKey:@"canonicalName"];
+    [newWhiskeyObject setValue:[self findOrCreateRegion:region] forKey:@"region"];
     [[newWhiskeyObject valueForKey:@"region"] addWhiskiesObject:newWhiskeyObject];
     
     NSManagedObject *newWhiskeyImage = [NSEntityDescription insertNewObjectForEntityForName:@"WhiskeyImage" inManagedObjectContext:self.managedObjectContext];
@@ -247,8 +309,9 @@ NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpd
 
 -(void)updateItem
 {
-    [self.detailItem setValue:self.nameTextField.text forKey:@"name"];
-    [self.detailItem setValue:[self findOrCreateRegion:self.regionTextField.text] forKey:@"region"];
+    [self.detailItem setValue:[self nameString] forKey:@"name"];
+    [self.detailItem setValue:[[self nameString] lowercaseString] forKey:@"canonicalName"];
+    [self.detailItem setValue:[self findOrCreateRegion:[self regionString]] forKey:@"region"];
     [[self.detailItem valueForKey:@"region"] addWhiskiesObject:self.detailItem];
 }
 

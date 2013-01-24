@@ -102,7 +102,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    AFDetailViewController *viewController = [[AFDetailViewController alloc] initWithNibName:@"AFDetailViewController" bundle:nil];
+    AFDetailViewController *viewController = [[AFDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     viewController.detailItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -141,7 +141,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 -(void)promptForNewWhiskey:(id)sender
 {
-    AFDetailViewController *viewController = [[AFDetailViewController alloc] initWithNibName:@"AFDetailViewController" bundle:nil];
+    AFDetailViewController *viewController = [[AFDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     viewController.managedObjectContext = self.managedObjectContext;
     viewController.creatingNewEntity = YES;
     AFNavigationController *navigationController = [[AFNavigationController alloc] initWithRootViewController:viewController];

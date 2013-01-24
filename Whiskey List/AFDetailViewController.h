@@ -10,18 +10,15 @@
 
 extern NSString * const AFModelRelationWasUpdatedNotification;
 
-@interface AFDetailViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
+@interface AFDetailViewController : UITableViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) id detailItem;
 
 @property (nonatomic, assign) BOOL creatingNewEntity;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *regionTextField;
+@property (weak, nonatomic) UIButton *photoButton;
 
-@property (weak, nonatomic) IBOutlet UIImageView *whiskeyImageView;
-
--(IBAction)userDidTapEditPhotoButton:(id)sender;
+@property (weak, nonatomic) UIImageView *whiskeyImageView;
 
 @end
