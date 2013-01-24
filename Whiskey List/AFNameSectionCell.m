@@ -58,7 +58,7 @@
     
     if (self.editing)
     {
-        offset.width -= 34;
+        offset.width -= 32;
     }
     
     CGFloat newX = offset.width;

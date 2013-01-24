@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E97E11716B1A169004E43B5 /* AFPhotoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E97E11616B1A169004E43B5 /* AFPhotoButton.m */; };
 		5EA77C6516AF33FA00C1C62A /* AFNameSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */; };
 		5EA9E64F16AE1203008DC4E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E64E16AE1203008DC4E4 /* UIKit.framework */; };
 		5EA9E65116AE1203008DC4E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65016AE1203008DC4E4 /* Foundation.framework */; };
@@ -51,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E97E11516B1A169004E43B5 /* AFPhotoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPhotoButton.h; sourceTree = "<group>"; };
+		5E97E11616B1A169004E43B5 /* AFPhotoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPhotoButton.m; sourceTree = "<group>"; };
 		5EA77C6316AF33FA00C1C62A /* AFNameSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNameSectionCell.h; sourceTree = "<group>"; };
 		5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNameSectionCell.m; sourceTree = "<group>"; };
 		5EA9E64A16AE1203008DC4E4 /* Whiskey List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Whiskey List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,8 +132,6 @@
 			children = (
 				5EA9E66E16AE1204008DC4E4 /* AFDetailViewController.h */,
 				5EA9E66F16AE1204008DC4E4 /* AFDetailViewController.m */,
-				5EA77C6316AF33FA00C1C62A /* AFNameSectionCell.h */,
-				5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */,
 			);
 			name = "Detail View Controller";
 			sourceTree = "<group>";
@@ -231,6 +232,10 @@
 			children = (
 				5EA9E69F16AE15CE008DC4E4 /* AFCollectionViewCell.h */,
 				5EA9E6A016AE15CE008DC4E4 /* AFCollectionViewCell.m */,
+				5EA77C6316AF33FA00C1C62A /* AFNameSectionCell.h */,
+				5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */,
+				5E97E11516B1A169004E43B5 /* AFPhotoButton.h */,
+				5E97E11616B1A169004E43B5 /* AFPhotoButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -404,6 +409,7 @@
 				5EA9E6C016AE2A31008DC4E4 /* AFNavigationController.m in Sources */,
 				5EA9E6C316AE3A32008DC4E4 /* AFRegion.m in Sources */,
 				5EA77C6516AF33FA00C1C62A /* AFNameSectionCell.m in Sources */,
+				5E97E11716B1A169004E43B5 /* AFPhotoButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

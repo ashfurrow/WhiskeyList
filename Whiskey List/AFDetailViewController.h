@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class AFPhotoButton;
+
 extern NSString * const AFModelRelationWasUpdatedNotification;
 
 @interface AFDetailViewController : UITableViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
@@ -17,8 +19,6 @@ extern NSString * const AFModelRelationWasUpdatedNotification;
 @property (nonatomic, assign) BOOL creatingNewEntity;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (weak, nonatomic) UIButton *photoButton;
-
-@property (weak, nonatomic) UIImageView *whiskeyImageView;
+@property (weak, nonatomic) AFPhotoButton *photoButton;
 
 @end

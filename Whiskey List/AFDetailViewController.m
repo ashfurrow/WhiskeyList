@@ -8,6 +8,7 @@
 
 #import "AFDetailViewController.h"
 #import "AFRegion.h"
+#import "AFPhotoButton.h"
 
 #import "AFNameSectionCell.h"
 
@@ -230,7 +231,7 @@ static NSString *NameSectionCellIdentifier = @"NameSectionCell";
 
 - (void)configureView
 {
-    self.photoButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.photoButton = [AFPhotoButton buttonWithType:UIButtonTypeCustom];
     self.photoButton.frame = CGRectMake(10, 10, 90, 90);
     [self.photoButton addTarget:self action:@selector(userDidTapEditPhotoButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView addSubview:self.photoButton];
@@ -242,7 +243,7 @@ static NSString *NameSectionCellIdentifier = @"NameSectionCell";
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
         self.editing = NO;
         
-        self.whiskeyImageView.image = [UIImage imageWithData:[self.detailItem valueForKeyPath:@"image.imageData"]];
+        [self.photoButton setPhoto:[UIImage imageWithData:[self.detailItem valueForKeyPath:@"image.imageData"]]];
         
         self.title = NSLocalizedString(@"Info", @"Detail edit default title");
     }
@@ -320,7 +321,7 @@ static NSString *NameSectionCellIdentifier = @"NameSectionCell";
 {
     if (buttonIndex == actionSheet.destructiveButtonIndex)
     {
-        self.whiskeyImageView.image = nil;
+        [self.photoButton setPhoto:nil];
         [[self.detailItem valueForKey:@"image"] setValue:nil forKey:@"imageData"];
         [self saveContext];
         
@@ -374,7 +375,7 @@ static NSString *NameSectionCellIdentifier = @"NameSectionCell";
     
     UIImage *newImage = info[UIImagePickerControllerEditedImage];
     
-    self.whiskeyImageView.image = newImage;
+    [self.photoButton setPhoto:newImage];
     
     [[self.detailItem valueForKey:@"image"] setValue:UIImageJPEGRepresentation(newImage, 0.75f) forKey:@"imageData"];
     [self saveContext];
