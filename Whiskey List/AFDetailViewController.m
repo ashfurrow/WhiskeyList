@@ -25,7 +25,8 @@ enum {
 
 NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpdatedNotification";
 
-static NSString *NameSectionCellIdentifier = @"NameSectionCell";
+static NSString *NameRowCellIdentifier = @"NameRowCell";
+static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 
 @implementation AFDetailViewController
 
@@ -35,7 +36,8 @@ static NSString *NameSectionCellIdentifier = @"NameSectionCell";
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
     
-    [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:NameSectionCellIdentifier];
+    [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:NameRowCellIdentifier];
+    [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:RegionRowCellIdentifier];
 }
 
 #pragma mark - Table View Methods
@@ -60,22 +62,54 @@ static NSString *NameSectionCellIdentifier = @"NameSectionCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AFNameSectionCell *cell = (AFNameSectionCell *)[tableView dequeueReusableCellWithIdentifier:NameSectionCellIdentifier forIndexPath:indexPath];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
     if (indexPath.row == AFDetailViewControllerNameSectionNameRow)
     {
+        AFNameSectionCell *cell = (AFNameSectionCell *)[tableView dequeueReusableCellWithIdentifier:NameRowCellIdentifier forIndexPath:indexPath];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.enableTextField = YES;
+        
         cell.textFieldText = [self.detailItem valueForKey:@"name"];
         cell.textFieldPlaceholder = NSLocalizedString(@"Whiskey Name", @"");
+        
+        return cell;
     }
     else if (indexPath.row == AFDetailViewControllerNameSectionRegionRow)
     {
-        cell.textFieldText = [self.detailItem valueForKeyPath:@"region.name"];
-        cell.textFieldPlaceholder = NSLocalizedString(@"Region Name", @"");
+        AFNameSectionCell *cell = (AFNameSectionCell *)[tableView dequeueReusableCellWithIdentifier:RegionRowCellIdentifier forIndexPath:indexPath];
+        
+        cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        
+        cell.enableTextField = NO;
+        
+        NSString *regionName = [self.detailItem valueForKeyPath:@"region.name"];
+        
+        if (regionName.length > 0)
+        {
+            cell.textLabel.text = regionName;
+            cell.textLabel.textColor = [UIColor blackColor];
+        }
+        else
+        {
+            cell.textLabel.text = NSLocalizedString(@"Select Region", @"");
+            cell.textLabel.textColor = [UIColor lightGrayColor];
+        }
+        
+        return cell;
     }
     
-    return cell;
+    return nil;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.editing) return YES;
+    
+    return NO;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -256,13 +290,13 @@ static NSString *NameSectionCellIdentifier = @"NameSectionCell";
         
         self.editing = YES;
     }
+    
+    self.tableView.allowsSelectionDuringEditing = YES;
 }
 
 -(BOOL)validate
 {
     if ([[[self nameString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0)
-        return NO;
-    if ([[[self regionString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0)
         return NO;
     
     return YES;
@@ -298,8 +332,12 @@ static NSString *NameSectionCellIdentifier = @"NameSectionCell";
     
     [newWhiskeyObject setValue:name forKey:@"name"];
     [newWhiskeyObject setValue:[name lowercaseString] forKey:@"canonicalName"];
-    [newWhiskeyObject setValue:[self findOrCreateRegion:region] forKey:@"region"];
-    [[newWhiskeyObject valueForKey:@"region"] addWhiskiesObject:newWhiskeyObject];
+    
+    if (region.length > 0)
+    {
+        [newWhiskeyObject setValue:[self findOrCreateRegion:region] forKey:@"region"];
+        [[newWhiskeyObject valueForKey:@"region"] addWhiskiesObject:newWhiskeyObject];
+    }
     
     NSManagedObject *newWhiskeyImage = [NSEntityDescription insertNewObjectForEntityForName:@"WhiskeyImage" inManagedObjectContext:self.managedObjectContext];
     [newWhiskeyImage setValue:newWhiskeyObject forKey:@"whiskey"];

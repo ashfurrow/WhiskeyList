@@ -19,12 +19,27 @@
  
     textField = [[UITextField alloc] initWithFrame:CGRectZero];
     textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    textField.font = [UIFont boldSystemFontOfSize:17];
     [self.contentView addSubview:textField];
     
     [self setTextFieldPlaceholder:@""];
     [self setTextFieldText:@""];
     
     return self;
+}
+
+-(void)setEnableTextField:(BOOL)enableTextField
+{
+    _enableTextField = enableTextField;
+    
+    if (enableTextField)
+    {
+        textField.userInteractionEnabled = YES;
+    }
+    else
+    {
+        textField.userInteractionEnabled = NO;
+    }
 }
 
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated

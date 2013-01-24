@@ -13,4 +13,6 @@
 @property (nonatomic, strong) NSString *textFieldText;
 @property (nonatomic, strong) NSString *textFieldPlaceholder;
 
+@property (nonatomic, assign) BOOL enableTextField;
+
 @end
