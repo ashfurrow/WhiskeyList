@@ -5,7 +5,7 @@
         <attribute name="name" attributeType="String" minValueString="1" indexed="YES" syncable="YES"/>
         <relationship name="whiskies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Whiskey" inverseName="region" inverseEntity="Whiskey" syncable="YES"/>
     </entity>
-    <entity name="Whiskey" syncable="YES">
+    <entity name="Whiskey" representedClassName="AFWhiskey" syncable="YES">
         <attribute name="canonicalName" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="nose" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,8 +19,8 @@
         <relationship name="whiskey" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Whiskey" inverseName="image" inverseEntity="Whiskey" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Region" positionX="-191" positionY="153" width="128" height="88"/>
-        <element name="Whiskey" positionX="27" positionY="9" width="128" height="148"/>
-        <element name="WhiskeyImage" positionX="124" positionY="207" width="128" height="73"/>
+        <element name="Region" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Whiskey" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="WhiskeyImage" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

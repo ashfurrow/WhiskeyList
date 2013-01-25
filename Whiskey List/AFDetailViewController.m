@@ -6,11 +6,15 @@
 //  Copyright (c) 2013 Ash Furrow. All rights reserved.
 //
 
+// Controllers
 #import "AFDetailViewController.h"
 #import "AFZoomedPhotoViewController.h"
 
+// Models
 #import "AFRegion.h"
+#import "AFWhiskey.h"
 
+// Views
 #import "AFPhotoButton.h"
 #import "AFNameSectionCell.h"
 
@@ -208,6 +212,19 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     }
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == AFDetailViewControllerDetailsNoseSection ||
+        indexPath.section == AFDetailViewControllerDetailsNotesSection ||
+        indexPath.section == AFDetailViewControllerDetailsTasteSection)
+    {
+        //TODO: Real calculation goes here
+        return MAX(66.0f, 44.0f);
+    }
+    
+    return 44.0f;
+}
+
 #pragma mark - Overridden Properties
 
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated
@@ -218,7 +235,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     
     if (!editing)
     {
-        if (self.detailItem)
+        if (self.whiskey)
         {
             if ([self validate])
             {
@@ -246,11 +263,11 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     }
 }
 
-- (void)setDetailItem:(NSManagedObject *)newDetailItem
+- (void)setWhiskey:(AFWhiskey *)newDetailItem
 {
-    if (_detailItem != newDetailItem) {
+    if (_whiskey != newDetailItem) {
         self.savedRegion = [newDetailItem valueForKey:@"region"];
-        _detailItem = newDetailItem;
+        _whiskey = newDetailItem;
         self.managedObjectContext = newDetailItem.managedObjectContext;
         
         // Update the view.
@@ -266,7 +283,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 {
     if (self.editing)
     {
-        BOOL hasExistingPhoto = [self.detailItem valueForKeyPath:@"image.imageData"] != nil;
+        BOOL hasExistingPhoto = [self.whiskey valueForKeyPath:@"image.imageData"] != nil;
         
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         {
@@ -329,11 +346,11 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 {
     // Called after confirmDeleteWhiskey: to confirm
     
-    NSAssert(self.detailItem != nil, @"Tried to delete a nil detail item.");
+    NSAssert(self.whiskey != nil, @"Tried to delete a nil detail item.");
     
-    [[self.detailItem valueForKey:@"region"] removeWhiskiesObject:self.detailItem];
-    [self.managedObjectContext deleteObject:self.detailItem];
-    self.detailItem = nil;
+    [[self.whiskey valueForKey:@"region"] removeWhiskiesObject:self.whiskey];
+    [self.managedObjectContext deleteObject:self.whiskey];
+    self.whiskey = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -368,7 +385,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.enableTextField = YES;
     
-    cell.textFieldText = [self.detailItem valueForKey:@"name"];
+    cell.textFieldText = [self.whiskey valueForKey:@"name"];
     cell.textFieldPlaceholder = NSLocalizedString(@"Whiskey Name", @"");
 }
 
@@ -431,7 +448,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     if (buttonIndex == imageActionSheet.destructiveButtonIndex)
     {
         [self.photoButton setPhoto:nil];
-        [[self.detailItem valueForKey:@"image"] setValue:nil forKey:@"imageData"];
+        [[self.whiskey valueForKey:@"image"] setValue:nil forKey:@"imageData"];
         [self saveContext];
         
         return;
@@ -494,7 +511,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:AFModelRelationWasUpdatedNotification object:self.detailItem];
+    [[NSNotificationCenter defaultCenter] postNotificationName:AFModelRelationWasUpdatedNotification object:self.whiskey];
 }
 
 - (void)configureView
@@ -504,14 +521,14 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     [self.photoButton addTarget:self action:@selector(userDidTapEditPhotoButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView addSubview:self.photoButton];
     
-    if (self.detailItem && !self.creatingNewEntity)
+    if (self.whiskey && !self.creatingNewEntity)
     {
-        self.title = [self.detailItem valueForKey:@"name"];
+        self.title = [self.whiskey valueForKey:@"name"];
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
         self.editing = NO;
         
-        [self.photoButton setPhoto:[UIImage imageWithData:[self.detailItem valueForKeyPath:@"image.imageData"]]];
+        [self.photoButton setPhoto:[UIImage imageWithData:[self.whiskey valueForKeyPath:@"image.imageData"]]];
         
         self.title = NSLocalizedString(@"Info", @"Detail edit default title");
     }
@@ -564,11 +581,11 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 
 -(void)updateItem
 {
-    [self.detailItem setValue:[self nameString] forKey:@"name"];
-    [self.detailItem setValue:[[self nameString] lowercaseString] forKey:@"canonicalName"];
-    [[self.detailItem valueForKey:@"region"] removeWhiskiesObject:self.detailItem];
-    [self.detailItem setValue:self.savedRegion forKey:@"region"];
-    [[self.detailItem valueForKey:@"region"] addWhiskiesObject:self.detailItem];
+    [self.whiskey setValue:[self nameString] forKey:@"name"];
+    [self.whiskey setValue:[[self nameString] lowercaseString] forKey:@"canonicalName"];
+    [[self.whiskey valueForKey:@"region"] removeWhiskiesObject:self.whiskey];
+    [self.whiskey setValue:self.savedRegion forKey:@"region"];
+    [[self.whiskey valueForKey:@"region"] addWhiskiesObject:self.whiskey];
 }
 
 #pragma mark - UIActionSheetDelegate methods
@@ -593,7 +610,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     
     [self.photoButton setPhoto:self.savedImage];
     
-    [[self.detailItem valueForKey:@"image"] setValue:UIImageJPEGRepresentation(self.savedImage, 0.75f) forKey:@"imageData"];
+    [[self.whiskey valueForKey:@"image"] setValue:UIImageJPEGRepresentation(self.savedImage, 0.75f) forKey:@"imageData"];
     [self saveContext];
 }
 

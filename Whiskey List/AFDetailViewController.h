@@ -11,12 +11,13 @@
 #import "AFRegionSelectViewController.h"
 
 @class AFPhotoButton;
+@class AFWhiskey;
 
 extern NSString * const AFModelRelationWasUpdatedNotification;
 
 @interface AFDetailViewController : UITableViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, AFRegionSelectViewControllerDelegate>
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) AFWhiskey *whiskey;
 
 @property (nonatomic, assign) BOOL creatingNewEntity;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;

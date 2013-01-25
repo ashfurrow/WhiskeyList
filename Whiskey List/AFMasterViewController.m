@@ -122,7 +122,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     AFDetailViewController *viewController = [[AFDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    viewController.detailItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    viewController.whiskey = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
