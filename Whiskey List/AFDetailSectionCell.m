@@ -20,6 +20,7 @@
     textView = [[UITextView alloc] initWithFrame:CGRectZero];
     textView.backgroundColor = [UIColor clearColor];
     textView.font = [UIFont systemFontOfSize:17];
+    textView.clipsToBounds = NO;
     [self.contentView addSubview:textView];
     
     return self;
