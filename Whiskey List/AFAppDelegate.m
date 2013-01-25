@@ -42,6 +42,7 @@ static NSString *kFirstRunKey = @"first run";
     if (![defaults boolForKey:kFirstRunKey])
     {
         [defaults setBool:YES forKey:kFirstRunKey];
+        [defaults synchronize];
         
         [self setDefaultCoreDataContents];
     }
