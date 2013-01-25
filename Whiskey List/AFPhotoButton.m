@@ -44,7 +44,7 @@
 
 -(void)updateBorder
 {
-    self.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.layer.borderColor = [[UIColor colorWithWhite:0.96f alpha:1.0f] CGColor];
     self.layer.borderWidth = 5.0f;
     
     CGSize size = self.bounds.size;
@@ -128,7 +128,7 @@
             NSString *text = @"add photo";
             CGRect textRect = CGRectInset(self.bounds, 10, 24);
             
-            [[UIColor whiteColor] set];
+            [[UIColor colorWithWhite:0.96f alpha:1.0f] set];
             [text drawInRect:CGRectOffset(textRect, 0, 1) withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
             [[UIColor colorWithRed:50.0f/255.0f green:79.0f/255.0f blue:133.0f/255.0f alpha:1.0f] set];
             [text drawInRect:textRect withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment:NSTextAlignmentCenter];
