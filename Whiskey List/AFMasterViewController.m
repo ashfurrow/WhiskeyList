@@ -205,7 +205,6 @@ static NSString *CellIdentifier = @"CellIdentifier";
     self.layoutModeSelectionSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     [self.layoutModeSelectionSegmentedControl addTarget:self action:@selector(layoutModeSegmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
     //TODO: segmented control accessibility
-    //TODO: segmented control icons are too big
     
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.layoutModeSelectionSegmentedControl];;
     leftBarButtonItem.style = UIBarButtonItemStylePlain;

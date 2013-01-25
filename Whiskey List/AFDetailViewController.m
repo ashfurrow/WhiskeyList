@@ -41,6 +41,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 
 @interface AFDetailViewController ()
 
+@property (nonatomic, strong) NSString *savedName;
 @property (nonatomic, strong) UIImage *savedImage;
 @property (nonatomic, strong) AFRegion *savedRegion;
 @property (nonatomic, strong) NSString *savedNose;
@@ -313,10 +314,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     {
         if (self.whiskey)
         {
-            if ([self validate])
-            {
-                [self updateItem];
-            }
+            [self updateItem];
         }
     }
     
@@ -343,6 +341,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 {
     if (_whiskey != newDetailItem) {
         self.savedRegion = [newDetailItem valueForKey:@"region"];
+        self.savedName = newDetailItem.name;
         self.savedNose = newDetailItem.nose;
         self.savedNotes = newDetailItem.notes;
         self.savedTaste = newDetailItem.taste;
@@ -446,11 +445,6 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 
 -(void)userDidFinish:(id)sender
 {
-    if (![self validate])
-    {
-        return;
-    }
-    
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     [self insertNewObject];
 }
@@ -465,7 +459,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.enableTextField = YES;
     
-    cell.textFieldText = [self.whiskey valueForKey:@"name"];
+    cell.textFieldText = self.savedName;
     cell.textFieldPlaceholder = NSLocalizedString(@"Whiskey Name", @"");
 }
 
@@ -545,6 +539,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     if (!self.editing) return;
     
     self.navigationItem.rightBarButtonItem.enabled = [[textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0;
+    self.savedName = textField.text;
 }
 
 #pragma mark Others
@@ -612,13 +607,6 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     imageActionSheet = nil;
 }
 
--(NSString *)nameString
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:AFDetailViewControllerNameSectionNameRow inSection:AFDetailViewControllerNameSection];
-    
-    return [(AFNameSectionCell *)[self.tableView cellForRowAtIndexPath:indexPath] textFieldText];
-}
-
 -(void)saveContext
 {
     // Save the context.
@@ -664,19 +652,11 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"subtle_stripes"] resizableImageWithCapInsets:UIEdgeInsetsZero]];
 }
 
--(BOOL)validate
-{
-    if ([[[self nameString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0)
-        return NO;
-    
-    return YES;
-}
-
 - (void)insertNewObject
 {
     AFWhiskey *newWhiskeyObject = [NSEntityDescription insertNewObjectForEntityForName:@"Whiskey" inManagedObjectContext:self.managedObjectContext];
     
-    NSString *name = [self nameString];
+    NSString *name = self.savedName;
     
     [newWhiskeyObject setValue:name forKey:@"name"];
     [newWhiskeyObject setValue:[name lowercaseString] forKey:@"canonicalName"];
@@ -701,8 +681,8 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 -(void)updateItem
 {
     // Attributes
-    self.whiskey.name = [self nameString];
-    self.whiskey.canonicalName = [[self nameString] lowercaseString];
+    self.whiskey.name = self.savedName;
+    self.whiskey.canonicalName = [self.savedName lowercaseString];
     self.whiskey.nose = self.savedNose;
     self.whiskey.notes = self.savedNotes;
     self.whiskey.taste = self.savedTaste;
