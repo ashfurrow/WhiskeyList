@@ -7,7 +7,7 @@
 //
 
 #import "AFDetailViewController.h"
-#import "AFRegionSelectViewController.h"
+#import "AFZoomedPhotoViewController.h"
 
 #import "AFRegion.h"
 
@@ -234,7 +234,12 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     }
     else
     {
-        //TODO: Zoom in on photo
+        if (self.photoButton.photo)
+        {
+            AFZoomedPhotoViewController *viewController = [[AFZoomedPhotoViewController alloc] init];
+            viewController.image = self.photoButton.photo;
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
     }
 }
 

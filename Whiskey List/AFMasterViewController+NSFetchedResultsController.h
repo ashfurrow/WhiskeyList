@@ -10,4 +10,6 @@
 
 @interface AFMasterViewController (NSFetchedResultsController)
 
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+
 @end

@@ -14,12 +14,18 @@
 @property (nonatomic, strong) NSMutableArray *sectionChanges;
 
 -(NSFetchedResultsController *)nonCachedFetchedResultsController;
+-(void)setNonCachedFetchedResultsController:(NSFetchedResultsController *)resultsController;
 
 @end
 
 @implementation AFMasterViewController (NSFetchedResultsController)
 
 #pragma mark - Fetched results controller
+
+-(void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
+{
+    [self setNonCachedFetchedResultsController:fetchedResultsController];
+}
 
 - (NSFetchedResultsController *)fetchedResultsController
 {

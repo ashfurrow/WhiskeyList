@@ -13,6 +13,7 @@
 		5E97E13916B1FE58004E43B5 /* subtle_stripes_@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E97E13716B1FE58004E43B5 /* subtle_stripes_@2X.png */; };
 		5E97E13A16B1FE58004E43B5 /* subtle_stripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E97E13816B1FE58004E43B5 /* subtle_stripes.png */; };
 		5E97E14016B20783004E43B5 /* missing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E97E13F16B20783004E43B5 /* missing@2x.png */; };
+		5E97E15216B2194E004E43B5 /* AFZoomedPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E97E15116B2194E004E43B5 /* AFZoomedPhotoViewController.m */; };
 		5EA77C6516AF33FA00C1C62A /* AFNameSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */; };
 		5EA9E64F16AE1203008DC4E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E64E16AE1203008DC4E4 /* UIKit.framework */; };
 		5EA9E65116AE1203008DC4E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65016AE1203008DC4E4 /* Foundation.framework */; };
@@ -65,6 +66,8 @@
 		5E97E13716B1FE58004E43B5 /* subtle_stripes_@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subtle_stripes_@2X.png"; sourceTree = "<group>"; };
 		5E97E13816B1FE58004E43B5 /* subtle_stripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = subtle_stripes.png; sourceTree = "<group>"; };
 		5E97E13F16B20783004E43B5 /* missing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "missing@2x.png"; sourceTree = "<group>"; };
+		5E97E15016B2194E004E43B5 /* AFZoomedPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFZoomedPhotoViewController.h; sourceTree = "<group>"; };
+		5E97E15116B2194E004E43B5 /* AFZoomedPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFZoomedPhotoViewController.m; sourceTree = "<group>"; };
 		5EA77C6316AF33FA00C1C62A /* AFNameSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNameSectionCell.h; sourceTree = "<group>"; };
 		5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNameSectionCell.m; sourceTree = "<group>"; };
 		5EA9E64A16AE1203008DC4E4 /* Whiskey List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Whiskey List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +155,8 @@
 			children = (
 				5EA9E66E16AE1204008DC4E4 /* AFDetailViewController.h */,
 				5EA9E66F16AE1204008DC4E4 /* AFDetailViewController.m */,
+				5E97E15016B2194E004E43B5 /* AFZoomedPhotoViewController.h */,
+				5E97E15116B2194E004E43B5 /* AFZoomedPhotoViewController.m */,
 			);
 			name = "Detail View Controller";
 			sourceTree = "<group>";
@@ -440,6 +445,7 @@
 				5EA77C6516AF33FA00C1C62A /* AFNameSectionCell.m in Sources */,
 				5E97E11716B1A169004E43B5 /* AFPhotoButton.m in Sources */,
 				5E97E11B16B1BFF3004E43B5 /* AFRegionSelectViewController.m in Sources */,
+				5E97E15216B2194E004E43B5 /* AFZoomedPhotoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

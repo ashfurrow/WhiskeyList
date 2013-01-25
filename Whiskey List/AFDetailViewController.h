@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "AFRegionSelectViewController.h"
+
 @class AFPhotoButton;
-@protocol AFRegionSelectViewControllerDelegate;
 
 extern NSString * const AFModelRelationWasUpdatedNotification;
 
