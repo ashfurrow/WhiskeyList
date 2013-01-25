@@ -38,6 +38,10 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 @end
 
 @implementation AFDetailViewController
+{
+    UIActionSheet *imageActionSheet;
+    UIActionSheet *deletionActionSheet;
+}
 
 - (void)viewDidLoad
 {
@@ -113,6 +117,33 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     
     return nil;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (section != [tableView numberOfSections] - 1) return 0.0f;
+    if (!self.editing || self.creatingNewEntity) return 0.0f;
+    
+    return 55.0f;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section != [tableView numberOfSections] - 1) return nil;
+    if (!self.editing || self.creatingNewEntity) return nil;
+    
+    UIButton *delete = [UIButton buttonWithType:UIButtonTypeCustom];
+    [delete addTarget:self action:@selector(confirmDeleteWhiskey:) forControlEvents:UIControlEventTouchUpInside];
+    [delete setTitleShadowColor:[UIColor colorWithWhite:0.0f alpha:0.5f] forState:UIControlStateNormal];
+    [delete.titleLabel setShadowOffset:CGSizeMake(0, -1)];
+    [delete.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
+    [delete setBackgroundImage:[[UIImage imageNamed:@"delete"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 18, 0, 18)] forState:UIControlStateNormal];
+    delete.titleEdgeInsets = UIEdgeInsetsMake(10, 0, 0, 0);
+    delete.frame = CGRectMake(0, 0, 300, 55);
+    
+    delete.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [delete setTitle:NSLocalizedString(@"Delete Whiskey", @"") forState:UIControlStateNormal];
+    
+    return delete;
+}
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -171,6 +202,12 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
             [self.navigationItem setLeftBarButtonItem:nil animated:YES];
         }
     }
+    
+    // Check to make sure we're on screen (this is called from viewDidLoad).
+    if (self.view.window)
+    {
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:self.tableView.numberOfSections - 1] withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 - (void)setDetailItem:(NSManagedObject *)newDetailItem
@@ -198,27 +235,26 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         {
             //If this device has a camera, then present an action sheet
-            UIActionSheet *actionSheet;
             
             if (hasExistingPhoto)
             {
-                actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Delete Photo", @"") otherButtonTitles:NSLocalizedString(@"Take a Photo", @""), NSLocalizedString(@"Choose Existing Photo", @""), nil];
+                imageActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Delete Photo", @"") otherButtonTitles:NSLocalizedString(@"Take a Photo", @""), NSLocalizedString(@"Choose Existing Photo", @""), nil];
             }
             else
             {
                 //If this device has a camera, then present an action sheet
-                actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Take a Photo", @""), NSLocalizedString(@"Choose Existing Photo", @""), nil];
+                imageActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Take a Photo", @""), NSLocalizedString(@"Choose Existing Photo", @""), nil];
             }
             
-            [actionSheet showInView:self.view];
+            [imageActionSheet showInView:self.view];
         }
         else
         {
             if (hasExistingPhoto)
             {
-                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Delete Photo", @"") otherButtonTitles:NSLocalizedString(@"Choose Existing Photo", @""), nil];
+                imageActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Delete Photo", @"") otherButtonTitles:NSLocalizedString(@"Choose Existing Photo", @""), nil];
                 
-                [actionSheet showInView:self.view];
+                [imageActionSheet showInView:self.view];
             }
             else
             {
@@ -245,6 +281,26 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 
 #pragma mark Others
 
+-(void)confirmDeleteWhiskey:(id)sender
+{
+    // Asks the user to confirm they want to delete the whiskey
+    
+    deletionActionSheet = [[UIActionSheet alloc] initWithTitle:@"Delete Whiskey?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:nil];
+    [deletionActionSheet showInView:self.view];
+}
+
+-(void)deleteWhiskey
+{
+    // Called after confirmDeleteWhiskey: to confirm
+    
+    NSAssert(self.detailItem != nil, @"Tried to delete a nil detail item.");
+    
+    [[self.detailItem valueForKey:@"region"] removeWhiskiesObject:self.detailItem];
+    [self.managedObjectContext deleteObject:self.detailItem];
+    self.detailItem = nil;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)userDidCancelNewItem:(id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
@@ -270,6 +326,69 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 }
 
 #pragma mark - Private Custom Methods
+
+-(void)handleDeletionActionSheetButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == deletionActionSheet.destructiveButtonIndex)
+    {
+        [self deleteWhiskey];
+    }
+    
+    deletionActionSheet = nil;
+}
+
+-(void)handleImageActionSheetButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == imageActionSheet.destructiveButtonIndex)
+    {
+        [self.photoButton setPhoto:nil];
+        [[self.detailItem valueForKey:@"image"] setValue:nil forKey:@"imageData"];
+        [self saveContext];
+        
+        return;
+    }
+    else if (buttonIndex == imageActionSheet.cancelButtonIndex)
+    {
+        return;
+    }
+    
+    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+    pickerController.delegate = self;
+    pickerController.allowsEditing = YES;
+    
+    if (buttonIndex == imageActionSheet.firstOtherButtonIndex)
+    {
+		if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+		{
+			//Take new photo
+			pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+			pickerController.showsCameraControls = YES;
+			if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront])
+			{
+				pickerController.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+			}
+		}
+		else
+		{
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Take Photo", @"")
+															message:NSLocalizedString(@"Unable to access the camera.", @"")
+														   delegate:nil
+												  cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
+												  otherButtonTitles:nil];
+			[alert show];
+			return;
+		}
+    }
+    else if (buttonIndex == 1)
+    {
+        //Choose existing photo
+        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    
+    [self presentViewController:pickerController animated:YES completion:nil];
+    
+    imageActionSheet = nil;
+}
 
 -(NSString *)nameString
 {
@@ -330,27 +449,6 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     return YES;
 }
 
-//-(AFRegion *)findOrCreateRegion:(NSString *)regionName
-//{    
-//    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
-//    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", regionName];
-//    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
-//    
-//    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-//    
-//    if (results.count > 0)
-//    {
-//        return [results objectAtIndex:0];
-//    }
-//    else
-//    {
-//        AFRegion *newRegion = [NSEntityDescription insertNewObjectForEntityForName:@"Region" inManagedObjectContext:self.managedObjectContext];
-//        [newRegion setValue:regionName forKey:@"name"];
-//        [newRegion setValue:[regionName lowercaseString] forKey:@"canonicalName"];
-//        return newRegion;
-//    }
-//}
-
 - (void)insertNewObject
 {
     NSManagedObject *newWhiskeyObject = [NSEntityDescription insertNewObjectForEntityForName:@"Whiskey" inManagedObjectContext:self.managedObjectContext];
@@ -386,53 +484,14 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 #pragma mark - UIActionSheetDelegate methods
 -(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == actionSheet.destructiveButtonIndex)
+    if (actionSheet == imageActionSheet)
     {
-        [self.photoButton setPhoto:nil];
-        [[self.detailItem valueForKey:@"image"] setValue:nil forKey:@"imageData"];
-        [self saveContext];
-        
-        return;
+        [self handleImageActionSheetButtonIndex:buttonIndex];
     }
-    else if (buttonIndex == actionSheet.cancelButtonIndex)
+    else if (actionSheet == deletionActionSheet)
     {
-        return;
+        [self handleDeletionActionSheetButtonIndex:buttonIndex];
     }
-    
-    UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-    pickerController.delegate = self;
-    pickerController.allowsEditing = YES;
-    
-    if (buttonIndex == actionSheet.firstOtherButtonIndex)
-    {
-		if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-		{
-			//Take new photo
-			pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-			pickerController.showsCameraControls = YES;
-			if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront])
-			{
-				pickerController.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-			}
-		}
-		else
-		{
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Take Photo", @"")
-															message:NSLocalizedString(@"Unable to access the camera.", @"")
-														   delegate:nil
-												  cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
-												  otherButtonTitles:nil];
-			[alert show];
-			return;
-		}
-    }
-    else if (buttonIndex == 1)
-    {
-        //Choose existing photo
-        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    
-    [self presentViewController:pickerController animated:YES completion:nil];
 }
 
 #pragma mark - UIImagePickerController methods
