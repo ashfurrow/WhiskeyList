@@ -8,6 +8,8 @@
 
 #import "AFAppDelegate.h"
 
+#import "TestFlight.h"
+
 #import "AFMasterViewController.h"
 #import "AFNavigationController.h"
 #import "AFRegion.h"
@@ -42,6 +44,8 @@ static NSString *kFirstRunKey = @"first run";
         
         [self setDefaultCoreDataContents];
     }
+    
+    [TestFlight takeOff:@"f28710e78801b9c0d4a2b7960767c8a1_OTIzNDAyMDEyLTA1LTIyIDE5OjAzOjM1LjM5Nzk2Nw"];
     
     return YES;
 }

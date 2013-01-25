@@ -46,6 +46,9 @@
 		5EA9E6BD16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6BC16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m */; };
 		5EA9E6C016AE2A31008DC4E4 /* AFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6BF16AE2A30008DC4E4 /* AFNavigationController.m */; };
 		5EA9E6C316AE3A32008DC4E4 /* AFRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6C216AE3A32008DC4E4 /* AFRegion.m */; };
+		5EB325C816B2256200D703E1 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB325C616B2256200D703E1 /* libTestFlight.a */; };
+		5EB325CB16B2257F00D703E1 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB325C616B2256200D703E1 /* libTestFlight.a */; };
+		5EB325CD16B225B100D703E1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB325CC16B225B100D703E1 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +117,9 @@
 		5EA9E6BF16AE2A30008DC4E4 /* AFNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNavigationController.m; sourceTree = "<group>"; };
 		5EA9E6C116AE3A32008DC4E4 /* AFRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFRegion.h; sourceTree = "<group>"; };
 		5EA9E6C216AE3A32008DC4E4 /* AFRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRegion.m; sourceTree = "<group>"; };
+		5EB325C616B2256200D703E1 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		5EB325C716B2256200D703E1 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		5EB325CC16B225B100D703E1 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,10 +127,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EB325CD16B225B100D703E1 /* libz.dylib in Frameworks */,
 				5EA9E6A516AE1644008DC4E4 /* QuartzCore.framework in Frameworks */,
 				5EA9E64F16AE1203008DC4E4 /* UIKit.framework in Frameworks */,
 				5EA9E65116AE1203008DC4E4 /* Foundation.framework in Frameworks */,
 				5EA9E65316AE1203008DC4E4 /* CoreGraphics.framework in Frameworks */,
+				5EB325CB16B2257F00D703E1 /* libTestFlight.a in Frameworks */,
 				5EA9E65516AE1203008DC4E4 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +145,7 @@
 				5EA9E67F16AE1204008DC4E4 /* UIKit.framework in Frameworks */,
 				5EA9E68016AE1204008DC4E4 /* Foundation.framework in Frameworks */,
 				5EA9E68116AE1204008DC4E4 /* CoreData.framework in Frameworks */,
+				5EB325C816B2256200D703E1 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +175,7 @@
 		5EA9E63F16AE1203008DC4E4 = {
 			isa = PBXGroup;
 			children = (
+				5EB325CC16B225B100D703E1 /* libz.dylib */,
 				5EA9E65616AE1203008DC4E4 /* Whiskey List */,
 				5EA9E68416AE1204008DC4E4 /* Whiskey ListTests */,
 				5EA9E64D16AE1203008DC4E4 /* Frameworks */,
@@ -185,6 +195,7 @@
 		5EA9E64D16AE1203008DC4E4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5EB325CA16B2256B00D703E1 /* Test Flight */,
 				5EA9E6A416AE1644008DC4E4 /* QuartzCore.framework */,
 				5EA9E64E16AE1203008DC4E4 /* UIKit.framework */,
 				5EA9E65016AE1203008DC4E4 /* Foundation.framework */,
@@ -314,6 +325,15 @@
 				5EA9E6BC16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m */,
 			);
 			name = "Root View Controller";
+			sourceTree = "<group>";
+		};
+		5EB325CA16B2256B00D703E1 /* Test Flight */ = {
+			isa = PBXGroup;
+			children = (
+				5EB325C616B2256200D703E1 /* libTestFlight.a */,
+				5EB325C716B2256200D703E1 /* TestFlight.h */,
+			);
+			name = "Test Flight";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -547,6 +567,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Whiskey List/Whiskey List-Prefix.pch";
 				INFOPLIST_FILE = "Whiskey List/Whiskey List-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -555,10 +579,16 @@
 		5EA9E69116AE1204008DC4E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Whiskey List/Whiskey List-Prefix.pch";
 				INFOPLIST_FILE = "Whiskey List/Whiskey List-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -574,6 +604,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Whiskey List/Whiskey List-Prefix.pch";
 				INFOPLIST_FILE = "Whiskey ListTests/Whiskey ListTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -591,6 +625,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Whiskey List/Whiskey List-Prefix.pch";
 				INFOPLIST_FILE = "Whiskey ListTests/Whiskey ListTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
