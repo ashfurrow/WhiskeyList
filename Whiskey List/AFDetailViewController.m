@@ -418,6 +418,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     [self.managedObjectContext deleteObject:self.whiskey];
     self.whiskey = nil;
     [self.navigationController popViewControllerAnimated:YES];
+    [self saveContext];
 }
 
 -(void)userDidCancelNewItem:(id)sender
@@ -713,6 +714,8 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     self.savedRegion = region;
     [self.navigationController popToViewController:self animated:YES];
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:AFDetailViewControllerNameSectionRegionRow inSection:AFDetailViewControllerNameSection]] withRowAnimation:UITableViewRowAnimationFade];
+    
+    [self saveContext];
 }
 
 @end
