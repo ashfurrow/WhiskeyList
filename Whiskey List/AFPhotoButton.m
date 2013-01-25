@@ -114,9 +114,7 @@
         }
         else
         {
-            //TODO: missing photo image drawn here
-            [[UIColor blueColor] set];
-            CGContextFillRect(UIGraphicsGetCurrentContext(), CGRectInset(self.bounds, 5, 5));
+            [[UIImage imageNamed:@"missing"] drawInRect:CGRectInset(self.bounds, 5, 5)];
         }
     }
 }

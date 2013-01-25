@@ -11,6 +11,8 @@
 
 @interface AFCollectionViewCellSelectedView : UIView
 
+@property (nonatomic, assign) BOOL selected;
+
 @end
 
 @implementation AFCollectionViewCell
@@ -25,19 +27,23 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if (!(self = [super initWithFrame:frame])) return nil;
-    
-    self.backgroundColor = [UIColor colorWithWhite:0.5f alpha:0.5f];
+    self.backgroundColor = [UIColor colorWithWhite:0.96f alpha:1.0f];
 
-    UIView *selectedBackgroundView = [[AFCollectionViewCellSelectedView alloc] initWithFrame:CGRectZero];
-//    selectedBackgroundView.backgroundColor = [UIColor blueColor];
+    AFCollectionViewCellSelectedView *selectedBackgroundView = [[AFCollectionViewCellSelectedView alloc] initWithFrame:CGRectZero];
     self.selectedBackgroundView = selectedBackgroundView;
+    
+//    self.backgroundView = [[AFCollectionViewCellSelectedView alloc] initWithFrame:CGRectZero];
     
     nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     nameLabel.backgroundColor = [UIColor clearColor];
+    nameLabel.textColor = [UIColor darkTextColor];
+    nameLabel.font = [UIFont systemFontOfSize:17];
     [self.contentView addSubview:nameLabel];
     
     regionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     regionLabel.backgroundColor = [UIColor clearColor];
+    regionLabel.textColor = [UIColor darkTextColor];
+    regionLabel.font = [UIFont systemFontOfSize:17];
     [self.contentView addSubview:regionLabel];
     
     imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -45,13 +51,13 @@
     [self.contentView insertSubview:imageView belowSubview:nameLabel];
     
     labelBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    labelBackgroundView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.4f];
+    labelBackgroundView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.7f];
     [self.contentView insertSubview:labelBackgroundView belowSubview:nameLabel];
     
     self.layer.masksToBounds = YES;
     self.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.layer.borderWidth = 1.0f;
-    self.layer.cornerRadius = 5.0f;
+    self.layer.cornerRadius = 10.0f;
     
     return self;
 }
@@ -71,7 +77,14 @@
 
 -(void)setImage:(UIImage *)image
 {
-    imageView.image = image;
+    if (!image)
+    {
+        imageView.image = [UIImage imageNamed:@"missing"];
+    }
+    else
+    {
+        imageView.image = image;
+    }
 }
 
 -(void)setRegion:(NSString *)region
@@ -119,14 +132,11 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     
-    CGRect drawRect = CGRectMake(rect.origin.x+1, rect.origin.y,rect.size.width-2, rect.size.height);
+    CGRect drawRect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     
-//    CGContextSetRGBFillColor(context, 48.0f/255.0f, 117.0f/255.0f, 160.0f/255.0f, 1.0f);
-    //        CGContextSetRGBFillColor(context, 58.0f/255.0f, 116.0f/255.0f, 249.0f/255.0f, 1.0f);
-//    CGContextSetRGBFillColor(context, 85.0f/255.0f, 121.0f/255.0f, 156.0f/255.0f, 1.0f);
-    CGContextSetRGBFillColor(context, 3.0f/255.0f, 121.0f/255.0f, 239.0f/255.0f, 1.0f);
+//    CGContextSetRGBFillColor(context, 3.0f/255.0f, 121.0f/255.0f, 239.0f/255.0f, self.selected ? 0.5f : 1.0f);
+    CGContextSetRGBFillColor(context, 100.0f/255.0f, 140.0f/255.0f, 200.0f/255.0f, 1.0f);
     
-    CGContextClip(context);
     CGContextFillRect(context, drawRect);
     
     // Create a gradient from white to black
@@ -139,8 +149,6 @@
     CGGradientRef gradient = CGGradientCreateWithColorComponents(baseSpace, colors, NULL, 2);
     CGColorSpaceRelease(baseSpace), baseSpace = NULL;
     
-    //We need a custom blend mode to get the effect Adam wants.
-    //Overlay a white-to-black graident over our solid colour.
     CGContextSetBlendMode(context, kCGBlendModeOverlay);
     
     CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));

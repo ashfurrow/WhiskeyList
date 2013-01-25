@@ -104,7 +104,7 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
         }
         else
         {
-            cell.textLabel.text = NSLocalizedString(@"Select Region", @"");
+            cell.textLabel.text = NSLocalizedString(@"No Region", @"");
             cell.textLabel.textColor = [UIColor lightGrayColor];
         }
         
