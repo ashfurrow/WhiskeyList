@@ -81,6 +81,12 @@ static NSString *CellIdentifier = @"CellIdentifier";
     [super viewDidLoad];
     
     [self setupNavigationItem];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
     [self updateNoResultsView];
 }
 
