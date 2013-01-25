@@ -54,11 +54,12 @@
 {
     [super layoutSubviews];
     
-    self.clipsToBounds = NO;
-    self.contentView.clipsToBounds = NO;
+    self.contentView.clipsToBounds = YES;
     
-    textView.bounds = self.contentView.bounds;
-    textView.center = CGPointMake(CGRectGetMidX(self.contentView.bounds), CGRectGetMidY(self.contentView.bounds) + 2.0f);
+    CGRect bounds = self.contentView.bounds;
+    bounds.size.height -= 10;
+    textView.bounds = bounds;
+    textView.center = CGPointMake(CGRectGetMidX(self.contentView.bounds), CGRectGetMidY(self.contentView.bounds) - 2.0f);
     textView.frame = CGRectIntegral(textView.frame);
 }
 

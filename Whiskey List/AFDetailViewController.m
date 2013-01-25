@@ -246,7 +246,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
         
         CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(300, 1000) lineBreakMode:NSLineBreakByWordWrapping];
         
-        return MAX(size.height + 20, 44.0f);
+        return MAX(size.height + 20, 66.0f);
     }
     
     return 44.0f;
