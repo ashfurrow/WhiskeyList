@@ -46,6 +46,9 @@ static NSString *CellIdentifier = @"CellIdentifier";
     newCollectionView.dataSource = self;
     newCollectionView.delegate = self;
     
+    newCollectionView.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"subtle_stripes"] resizableImageWithCapInsets:UIEdgeInsetsZero]];
+    newCollectionView.alwaysBounceVertical = YES;
+    
     // Register our classes so we can use our custom subclassed cell and header
     [newCollectionView registerClass:[AFCollectionViewCell class] forCellWithReuseIdentifier:CellIdentifier];
     

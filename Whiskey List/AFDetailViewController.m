@@ -310,6 +310,8 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     }
     
     self.tableView.allowsSelectionDuringEditing = YES;
+    
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"subtle_stripes"] resizableImageWithCapInsets:UIEdgeInsetsZero]];
 }
 
 -(BOOL)validate

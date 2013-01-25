@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5E97E11716B1A169004E43B5 /* AFPhotoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E97E11616B1A169004E43B5 /* AFPhotoButton.m */; };
 		5E97E11B16B1BFF3004E43B5 /* AFRegionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E97E11A16B1BFF3004E43B5 /* AFRegionSelectViewController.m */; };
+		5E97E13616B1FDC3004E43B5 /* leather.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E97E13516B1FDC3004E43B5 /* leather.jpg */; };
+		5E97E13916B1FE58004E43B5 /* subtle_stripes_@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E97E13716B1FE58004E43B5 /* subtle_stripes_@2X.png */; };
+		5E97E13A16B1FE58004E43B5 /* subtle_stripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E97E13816B1FE58004E43B5 /* subtle_stripes.png */; };
 		5EA77C6516AF33FA00C1C62A /* AFNameSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */; };
 		5EA9E64F16AE1203008DC4E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E64E16AE1203008DC4E4 /* UIKit.framework */; };
 		5EA9E65116AE1203008DC4E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E65016AE1203008DC4E4 /* Foundation.framework */; };
@@ -57,6 +60,9 @@
 		5E97E11616B1A169004E43B5 /* AFPhotoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPhotoButton.m; sourceTree = "<group>"; };
 		5E97E11916B1BFF3004E43B5 /* AFRegionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFRegionSelectViewController.h; sourceTree = "<group>"; };
 		5E97E11A16B1BFF3004E43B5 /* AFRegionSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFRegionSelectViewController.m; sourceTree = "<group>"; };
+		5E97E13516B1FDC3004E43B5 /* leather.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = leather.jpg; sourceTree = "<group>"; };
+		5E97E13716B1FE58004E43B5 /* subtle_stripes_@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subtle_stripes_@2X.png"; sourceTree = "<group>"; };
+		5E97E13816B1FE58004E43B5 /* subtle_stripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = subtle_stripes.png; sourceTree = "<group>"; };
 		5EA77C6316AF33FA00C1C62A /* AFNameSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNameSectionCell.h; sourceTree = "<group>"; };
 		5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNameSectionCell.m; sourceTree = "<group>"; };
 		5EA9E64A16AE1203008DC4E4 /* Whiskey List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Whiskey List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -277,6 +283,9 @@
 		5EA9E6B116AE1AAA008DC4E4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5E97E13716B1FE58004E43B5 /* subtle_stripes_@2X.png */,
+				5E97E13816B1FE58004E43B5 /* subtle_stripes.png */,
+				5E97E13516B1FDC3004E43B5 /* leather.jpg */,
 				5EA9E6AD16AE1AA5008DC4E4 /* grid.png */,
 				5EA9E6AE16AE1AA5008DC4E4 /* grid@2x.png */,
 				5EA9E6B216AE1BC6008DC4E4 /* list@2x.png */,
@@ -376,6 +385,9 @@
 				5EA9E6B016AE1AA6008DC4E4 /* grid@2x.png in Resources */,
 				5EA9E6B416AE1BC6008DC4E4 /* list@2x.png in Resources */,
 				5EA9E6B516AE1BC6008DC4E4 /* list.png in Resources */,
+				5E97E13616B1FDC3004E43B5 /* leather.jpg in Resources */,
+				5E97E13916B1FE58004E43B5 /* subtle_stripes_@2X.png in Resources */,
+				5E97E13A16B1FE58004E43B5 /* subtle_stripes.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
