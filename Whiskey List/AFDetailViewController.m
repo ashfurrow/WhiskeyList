@@ -43,6 +43,9 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 
 @property (nonatomic, strong) UIImage *savedImage;
 @property (nonatomic, strong) AFRegion *savedRegion;
+@property (nonatomic, strong) NSString *savedNose;
+@property (nonatomic, strong) NSString *savedTaste;
+@property (nonatomic, strong) NSString *savedNotes;
 
 @end
 
@@ -63,6 +66,13 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     [self.tableView registerClass:[AFDetailSectionCell class] forCellReuseIdentifier:DetailRowCellIdentifier];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTextFieldChange:) name:UITextFieldTextDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTextViewChange:) name:UITextViewTextDidChangeNotification object:nil];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -333,6 +343,9 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 {
     if (_whiskey != newDetailItem) {
         self.savedRegion = [newDetailItem valueForKey:@"region"];
+        self.savedNose = newDetailItem.nose;
+        self.savedNotes = newDetailItem.notes;
+        self.savedTaste = newDetailItem.taste;
         _whiskey = newDetailItem;
         self.managedObjectContext = newDetailItem.managedObjectContext;
         
@@ -483,15 +496,15 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 {
     if (indexPath.section == AFDetailViewControllerDetailsNoseSection)
     {
-        cell.detailText = self.whiskey.nose;
+        cell.detailText = self.savedNose;
     }
     else if (indexPath.section == AFDetailViewControllerDetailsNotesSection)
     {
-        cell.detailText = self.whiskey.notes;
+        cell.detailText = self.savedNotes;
     }
     else if (indexPath.section == AFDetailViewControllerDetailsTasteSection)
     {
-        cell.detailText = self.whiskey.taste;
+        cell.detailText = self.savedTaste;
     }
 
     // 0 means "infinite"
@@ -502,6 +515,27 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 }
 
 #pragma mark NSNotificationCenter Methods
+
+-(void)handleTextViewChange:(NSNotification *)notification
+{
+    UITextView *textView = (UITextView *)notification.object;
+    
+    if (![textView isDescendantOfView:self.view]) return;
+    if (!self.editing) return;
+    
+    if ([textView isDescendantOfView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:AFDetailViewControllerDetailsNoseSection]]])
+    {
+        self.savedNose = textView.text;
+    }
+    else if ([textView isDescendantOfView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:AFDetailViewControllerDetailsNotesSection]]])
+    {
+        self.savedNotes = textView.text;
+    }
+    else if ([textView isDescendantOfView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:AFDetailViewControllerDetailsTasteSection]]])
+    {
+        self.savedTaste = textView.text;
+    }
+}
 
 -(void)handleTextFieldChange:(NSNotification *)notification
 {
@@ -640,12 +674,15 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 
 - (void)insertNewObject
 {
-    NSManagedObject *newWhiskeyObject = [NSEntityDescription insertNewObjectForEntityForName:@"Whiskey" inManagedObjectContext:self.managedObjectContext];
+    AFWhiskey *newWhiskeyObject = [NSEntityDescription insertNewObjectForEntityForName:@"Whiskey" inManagedObjectContext:self.managedObjectContext];
     
     NSString *name = [self nameString];
     
     [newWhiskeyObject setValue:name forKey:@"name"];
     [newWhiskeyObject setValue:[name lowercaseString] forKey:@"canonicalName"];
+    newWhiskeyObject.nose = self.savedNose;
+    newWhiskeyObject.notes = self.savedNotes;
+    newWhiskeyObject.taste = self.savedTaste;
     
     if (self.savedRegion)
     {
@@ -666,9 +703,9 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     // Attributes
     self.whiskey.name = [self nameString];
     self.whiskey.canonicalName = [[self nameString] lowercaseString];
-    self.whiskey.nose = [(AFDetailSectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:AFDetailViewControllerDetailsNoseSection]] detailText];
-    self.whiskey.notes = [(AFDetailSectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:AFDetailViewControllerDetailsNotesSection]] detailText];
-    self.whiskey.taste = [(AFDetailSectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:AFDetailViewControllerDetailsTasteSection]] detailText];
+    self.whiskey.nose = self.savedNose;
+    self.whiskey.notes = self.savedNotes;
+    self.whiskey.taste = self.savedTaste;
     
     // Relationships
     [self.whiskey.region removeWhiskiesObject:self.whiskey];
