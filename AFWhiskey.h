@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSString * canonicalName;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * age;
 @property (nonatomic, retain) NSString * nose;
 @property (nonatomic, retain) NSString * notes;
 @property (nonatomic, retain) NSString * taste;

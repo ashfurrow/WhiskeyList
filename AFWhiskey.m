@@ -13,6 +13,7 @@
 
 @dynamic canonicalName;
 @dynamic name;
+@dynamic age;
 @dynamic nose;
 @dynamic notes;
 @dynamic taste;

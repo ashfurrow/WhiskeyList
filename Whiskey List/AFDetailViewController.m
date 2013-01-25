@@ -21,9 +21,11 @@
 
 enum {
     AFDetailViewControllerNameSection = 0,
+    AFDetailViewControllerDetailsAgeSection,
     AFDetailViewControllerDetailsNoseSection,
     AFDetailViewControllerDetailsTasteSection,
     AFDetailViewControllerDetailsNotesSection,
+    AFDetailViewControllerDetailsDeleteSection, //Fake section
     AFDetailViewControllerNumberOfSections
 };
 
@@ -37,6 +39,7 @@ NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpd
 
 static NSString *NameRowCellIdentifier = @"NameRowCell";
 static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
+static NSString *AgeRowCellIdentifier = @"AgeRowCellIdentifier";
 static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 
 @interface AFDetailViewController ()
@@ -47,6 +50,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 @property (nonatomic, strong) NSString *savedNose;
 @property (nonatomic, strong) NSString *savedTaste;
 @property (nonatomic, strong) NSString *savedNotes;
+@property (nonatomic, assign) NSInteger savedAge;
 
 @end
 
@@ -65,6 +69,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:NameRowCellIdentifier];
     [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:RegionRowCellIdentifier];
     [self.tableView registerClass:[AFDetailSectionCell class] forCellReuseIdentifier:DetailRowCellIdentifier];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:AgeRowCellIdentifier];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTextFieldChange:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTextViewChange:) name:UITextViewTextDidChangeNotification object:nil];
@@ -109,6 +114,10 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     {
         return 1;
     }
+    else if (section == AFDetailViewControllerDetailsAgeSection)
+    {
+        return 1;
+    }
     
     return 0;
 }
@@ -122,6 +131,14 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
         AFDetailSectionCell *cell = (AFDetailSectionCell *)[tableView dequeueReusableCellWithIdentifier:DetailRowCellIdentifier forIndexPath:indexPath];
         
         [self configureDetailCell:cell forIndexPath:indexPath];
+        
+        return cell;
+    }
+    else if (indexPath.section == AFDetailViewControllerDetailsAgeSection)
+    {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:AgeRowCellIdentifier];
+        
+        [self configureAgeCell:cell forIndexPath:indexPath];
         
         return cell;
     }
@@ -204,6 +221,10 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     else if (section == AFDetailViewControllerDetailsTasteSection)
     {
         return NSLocalizedString(@"Taste", @"Taste section header text");
+    }
+    else if (section == AFDetailViewControllerDetailsAgeSection)
+    {
+        return NSLocalizedString(@"Age", @"Age section header text");
     }
     
     return nil;
@@ -344,6 +365,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
         self.savedName = newDetailItem.name;
         self.savedNose = newDetailItem.nose;
         self.savedNotes = newDetailItem.notes;
+        self.savedAge = newDetailItem.age.integerValue;
         self.savedTaste = newDetailItem.taste;
         _whiskey = newDetailItem;
         self.managedObjectContext = newDetailItem.managedObjectContext;
@@ -354,8 +376,6 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 }
 
 #pragma mark - User Interaction Methods
-
-#pragma mark IBActions
 
 -(void)userDidTapEditPhotoButton:(id)sender
 {
@@ -410,7 +430,12 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     }
 }
 
-#pragma mark Others
+-(void)userTappedAgeChanger:(id)sender
+{
+    self.savedAge = [(UIStepper *)sender value];
+    
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:AFDetailViewControllerDetailsAgeSection]] withRowAnimation:UITableViewRowAnimationNone];
+}
 
 -(void)confirmDeleteWhiskey:(id)sender
 {
@@ -461,6 +486,24 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     
     cell.textFieldText = self.savedName;
     cell.textFieldPlaceholder = NSLocalizedString(@"Whiskey Name", @"");
+}
+
+-(void)configureAgeCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
+{
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
+    UIStepper *stepper = [[UIStepper alloc] initWithFrame:CGRectZero];
+    stepper.maximumValue = 1000;
+    stepper.minimumValue = 1;
+    stepper.value = self.savedAge;
+    [stepper addTarget:self action:@selector(userTappedAgeChanger:) forControlEvents:UIControlEventValueChanged];
+    
+    cell.editingAccessoryView = stepper;
+    
+    cell.textLabel.font = [UIFont systemFontOfSize:17];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%d years", self.savedAge];
 }
 
 -(void)configureRegionCell:(AFNameSectionCell *)cell forIndexPath:(NSIndexPath *)indexPath
@@ -663,6 +706,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     newWhiskeyObject.nose = self.savedNose;
     newWhiskeyObject.notes = self.savedNotes;
     newWhiskeyObject.taste = self.savedTaste;
+    newWhiskeyObject.age = @(self.savedAge);
     
     if (self.savedRegion)
     {
@@ -686,6 +730,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     self.whiskey.nose = self.savedNose;
     self.whiskey.notes = self.savedNotes;
     self.whiskey.taste = self.savedTaste;
+    self.whiskey.age = @(self.savedAge);
     
     // Relationships
     [self.whiskey.region removeWhiskiesObject:self.whiskey];

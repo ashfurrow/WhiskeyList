@@ -6,6 +6,7 @@
         <relationship name="whiskies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Whiskey" inverseName="region" inverseEntity="Whiskey" syncable="YES"/>
     </entity>
     <entity name="Whiskey" representedClassName="AFWhiskey" syncable="YES">
+        <attribute name="age" attributeType="Integer 32" defaultValueString="12" syncable="YES"/>
         <attribute name="canonicalName" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="nose" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,8 +20,8 @@
         <relationship name="whiskey" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Whiskey" inverseName="image" inverseEntity="Whiskey" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Region" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Whiskey" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="WhiskeyImage" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Region" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="Whiskey" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="WhiskeyImage" positionX="0" positionY="0" width="128" height="75"/>
     </elements>
 </model>
