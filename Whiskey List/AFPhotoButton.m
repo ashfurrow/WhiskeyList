@@ -9,10 +9,22 @@
 #import "AFPhotoButton.h"
 
 @implementation AFPhotoButton
+{
+    UIView *titleBackground;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
     if (!(self = [super initWithFrame:frame])) return nil;
+    
+    titleBackground = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleBackground.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
+    [self insertSubview:titleBackground aboveSubview:self.imageView];
+    
+    [self setTitle:@"edit" forState:UIControlStateNormal];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+    self.titleLabel.textColor = [UIColor whiteColor];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
     
     return self;
 }
@@ -53,7 +65,7 @@
     self.layer.shadowOffset = CGSizeMake(0, shadowDepth);
     self.layer.masksToBounds = NO;
     
-    if (!self.photo && self.enabled)
+    if (!self.photo && self.editing)
     {
         self.layer.masksToBounds = YES;
         self.layer.borderWidth = 0.0f;
@@ -65,11 +77,35 @@
     [self setNeedsDisplay];
 }
 
--(void)setEnabled:(BOOL)enabled
+-(void)layoutSubviews
 {
-    [super setEnabled:enabled];
+    [super layoutSubviews];
+    
+    const CGFloat height = 25.0f;
+    titleBackground.frame = CGRectMake(0, CGRectGetHeight(self.bounds) - height, CGRectGetWidth(self.bounds), height);
+    self.titleLabel.frame = CGRectOffset(titleBackground.frame, 0, -3);
+}
+
+-(void)updateTextLabel
+{
+    if (self.photo && self.editing)
+    {
+        titleBackground.alpha = 1.0f;
+        self.titleLabel.alpha = 1.0f;
+    }
+    else
+    {
+        titleBackground.alpha = 0.0f;
+        self.titleLabel.alpha = 0.0f;
+    }
+}
+
+-(void)setEditing:(BOOL)editing
+{
+    _editing = editing;
     
     [self updateBorder];
+    [self updateTextLabel];
     
     CATransition *transition = [CATransition animation];
     transition.duration = 0.2f;
@@ -86,7 +122,7 @@
     
     if (!self.photo)
     {
-        if (self.enabled)
+        if (self.editing)
         {            
             UIFont *font = [UIFont boldSystemFontOfSize:15];
             NSString *text = @"add photo";

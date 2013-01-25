@@ -11,5 +11,6 @@
 @interface AFPhotoButton : UIButton
 
 @property (nonatomic) UIImage *photo;
+@property (nonatomic, assign) BOOL editing;
 
 @end

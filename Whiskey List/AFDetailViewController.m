@@ -147,14 +147,10 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 {
     [super setEditing:editing animated:animated];
     
-    if (editing)
+    self.photoButton.editing = self.editing;
+    
+    if (!editing)
     {
-        self.photoButton.enabled = YES;
-    }
-    else
-    {
-        self.photoButton.enabled = NO;
-        
         if (self.detailItem)
         {
             if ([self validate])
@@ -195,43 +191,50 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 
 -(void)userDidTapEditPhotoButton:(id)sender
 {
-    BOOL hasExistingPhoto = [self.detailItem valueForKeyPath:@"image.imageData"] != nil;
-    
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    if (self.editing)
     {
-        //If this device has a camera, then present an action sheet
-        UIActionSheet *actionSheet;
+        BOOL hasExistingPhoto = [self.detailItem valueForKeyPath:@"image.imageData"] != nil;
         
-        if (hasExistingPhoto)
-        {
-            actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Delete Photo", @"") otherButtonTitles:NSLocalizedString(@"Take a Photo", @""), NSLocalizedString(@"Choose Existing Photo", @""), nil];
-        }
-        else
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         {
             //If this device has a camera, then present an action sheet
-            actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Take a Photo", @""), NSLocalizedString(@"Choose Existing Photo", @""), nil];
-        }
-
-        [actionSheet showInView:self.view];
-    }
-    else
-    {
-        if (hasExistingPhoto)
-        {
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Delete Photo", @"") otherButtonTitles:NSLocalizedString(@"Choose Existing Photo", @""), nil];
+            UIActionSheet *actionSheet;
+            
+            if (hasExistingPhoto)
+            {
+                actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Delete Photo", @"") otherButtonTitles:NSLocalizedString(@"Take a Photo", @""), NSLocalizedString(@"Choose Existing Photo", @""), nil];
+            }
+            else
+            {
+                //If this device has a camera, then present an action sheet
+                actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Take a Photo", @""), NSLocalizedString(@"Choose Existing Photo", @""), nil];
+            }
             
             [actionSheet showInView:self.view];
         }
         else
         {
-            //This device has no camera. Present the image picker now
-            UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
-            pickerController.delegate = self;
-            pickerController.allowsEditing = YES;
-            pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            
-            [self presentViewController:pickerController animated:YES completion:nil];
+            if (hasExistingPhoto)
+            {
+                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") destructiveButtonTitle:NSLocalizedString(@"Delete Photo", @"") otherButtonTitles:NSLocalizedString(@"Choose Existing Photo", @""), nil];
+                
+                [actionSheet showInView:self.view];
+            }
+            else
+            {
+                //This device has no camera. Present the image picker now
+                UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+                pickerController.delegate = self;
+                pickerController.allowsEditing = YES;
+                pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                
+                [self presentViewController:pickerController animated:YES completion:nil];
+            }
         }
+    }
+    else
+    {
+        //TODO: Zoom in on photo
     }
 }
 
