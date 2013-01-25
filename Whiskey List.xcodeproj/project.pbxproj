@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E2929F816B31BCA009A538A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2929F716B31BCA009A538A /* Icon.png */; };
+		5E2929FA16B31BCE009A538A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2929F916B31BCE009A538A /* Icon@2x.png */; };
 		5E7BB7CA16B21E4900FA894C /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7BB7C916B21E4900FA894C /* add.png */; };
 		5E97E11716B1A169004E43B5 /* AFPhotoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E97E11616B1A169004E43B5 /* AFPhotoButton.m */; };
 		5E97E11B16B1BFF3004E43B5 /* AFRegionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E97E11A16B1BFF3004E43B5 /* AFRegionSelectViewController.m */; };
@@ -65,6 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E2929F716B31BCA009A538A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		5E2929F916B31BCE009A538A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		5E7BB7C916B21E4900FA894C /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		5E97E11516B1A169004E43B5 /* AFPhotoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPhotoButton.h; sourceTree = "<group>"; };
 		5E97E11616B1A169004E43B5 /* AFPhotoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPhotoButton.m; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 		5EA9E63F16AE1203008DC4E4 = {
 			isa = PBXGroup;
 			children = (
+				5E2929F916B31BCE009A538A /* Icon@2x.png */,
+				5E2929F716B31BCA009A538A /* Icon.png */,
 				5EB325CC16B225B100D703E1 /* libz.dylib */,
 				5EA9E65616AE1203008DC4E4 /* Whiskey List */,
 				5EA9E68416AE1204008DC4E4 /* Whiskey ListTests */,
@@ -436,6 +442,8 @@
 				5E7BB7CA16B21E4900FA894C /* add.png in Resources */,
 				5EB325D016B2D01B00D703E1 /* delete.png in Resources */,
 				5EB325D116B2D01B00D703E1 /* delete@2x.png in Resources */,
+				5E2929F816B31BCA009A538A /* Icon.png in Resources */,
+				5E2929FA16B31BCE009A538A /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
