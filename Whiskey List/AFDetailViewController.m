@@ -218,8 +218,23 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
         indexPath.section == AFDetailViewControllerDetailsNotesSection ||
         indexPath.section == AFDetailViewControllerDetailsTasteSection)
     {
-        //TODO: Real calculation goes here
-        return MAX(66.0f, 44.0f);
+        NSString *text;
+        
+        switch (indexPath.section) {
+            case AFDetailViewControllerDetailsNoseSection:
+                text = self.whiskey.nose;
+                break;
+            case AFDetailViewControllerDetailsNotesSection:
+                text = self.whiskey.notes;
+                break;
+            case AFDetailViewControllerDetailsTasteSection:
+                text = self.whiskey.taste;
+                break;
+        }
+        
+        CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:17] constrainedToSize:CGSizeMake(300, 1000) lineBreakMode:NSLineBreakByWordWrapping];
+        
+        return MAX(size.height + 20, 44.0f);
     }
     
     return 44.0f;
@@ -414,7 +429,25 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 
 -(void)configureDetailCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
-    //TODO:
+    
+    if (indexPath.section == AFDetailViewControllerDetailsNoseSection)
+    {
+        cell.textLabel.text = self.whiskey.nose;
+    }
+    else if (indexPath.section == AFDetailViewControllerDetailsNotesSection)
+    {
+        cell.textLabel.text = self.whiskey.notes;
+    }
+    else if (indexPath.section == AFDetailViewControllerDetailsTasteSection)
+    {
+        cell.textLabel.text = self.whiskey.taste;
+    }
+
+    // 0 means "infinite"
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     cell.shouldIndentWhileEditing = NO;
 }
