@@ -51,6 +51,19 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     
     [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:NameRowCellIdentifier];
     [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:RegionRowCellIdentifier];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTextFieldChange:) name:UITextFieldTextDidChangeNotification object:nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Show the keyboard while animating up the modal display
+    if (self.creatingNewEntity)
+    {
+        [[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] becomeFirstResponder];
+    }
 }
 
 #pragma mark - Table View Methods
@@ -315,9 +328,6 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 {
     if (![self validate])
     {
-        //TODO: replace this with actual stuff
-        [[[UIAlertView alloc] initWithTitle:@"Empty Fields" message:@"Some bullshit error message" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"FINE.", nil] show];
-        
         return;
     }
     
@@ -326,6 +336,16 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 }
 
 #pragma mark - Private Custom Methods
+
+-(void)handleTextFieldChange:(NSNotification *)notification
+{
+    UITextField *textField = (UITextField *)notification.object;
+    
+    if (![textField isDescendantOfView:self.view]) return;
+    if (!self.editing) return;
+    
+    self.navigationItem.rightBarButtonItem.enabled = [[textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0;
+}
 
 -(void)handleDeletionActionSheetButtonIndex:(NSInteger)buttonIndex
 {
@@ -432,6 +452,7 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
         
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(userDidCancelNewItem:)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(userDidFinish:)];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
         
         self.editing = YES;
     }
