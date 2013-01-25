@@ -178,7 +178,8 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 -(void)updateNoResultsView
 {
-    if ([self numberOfSectionsInCollectionView:self.collectionView] == 0)
+    if ([self numberOfSectionsInCollectionView:self.collectionView] == 0 ||
+        [self collectionView:self.collectionView numberOfItemsInSection:0] == 0)
     {
         [self.parentViewController.view addSubview:self.noResultsImageView];
         self.noResultsImageView.frame = CGRectMake(0, 64, 320, 131);
