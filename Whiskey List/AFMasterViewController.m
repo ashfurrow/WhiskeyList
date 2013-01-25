@@ -28,6 +28,8 @@
 
 @property (nonatomic, strong) UISegmentedControl *layoutModeSelectionSegmentedControl;
 
+@property (nonatomic, strong) UIImageView *noResultsImageView;
+
 @end
 
 static NSString *CellIdentifier = @"CellIdentifier";
@@ -68,6 +70,10 @@ static NSString *CellIdentifier = @"CellIdentifier";
     _sectionChanges = [NSMutableArray array];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modelChanged:) name:AFModelRelationWasUpdatedNotification object:nil];
+    
+    self.noResultsImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"add"]];
+    self.noResultsImageView.userInteractionEnabled = NO;
+    self.noResultsImageView.contentMode = UIViewContentModeRight;
 }
 
 - (void)viewDidLoad
@@ -75,6 +81,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
     [super viewDidLoad];
     
     [self setupNavigationItem];
+    [self updateNoResultsView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -162,6 +169,19 @@ static NSString *CellIdentifier = @"CellIdentifier";
 }
 
 #pragma mark - Private Custom Methods
+
+-(void)updateNoResultsView
+{
+    if ([self numberOfSectionsInCollectionView:self.collectionView] == 0)
+    {
+        [self.parentViewController.view addSubview:self.noResultsImageView];
+        self.noResultsImageView.frame = CGRectMake(0, 64, 320, 131);
+    }
+    else
+    {
+        [self.noResultsImageView removeFromSuperview];
+    }
+}
 
 - (void)configureCell:(AFCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {

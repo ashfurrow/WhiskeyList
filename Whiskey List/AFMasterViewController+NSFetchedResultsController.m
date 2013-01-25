@@ -16,6 +16,8 @@
 -(NSFetchedResultsController *)nonCachedFetchedResultsController;
 -(void)setNonCachedFetchedResultsController:(NSFetchedResultsController *)resultsController;
 
+-(void)updateNoResultsView;
+
 @end
 
 @implementation AFMasterViewController (NSFetchedResultsController)
@@ -166,7 +168,7 @@
     
     [self.sectionChanges removeAllObjects];
     [self.objectChanges removeAllObjects];
+    [self updateNoResultsView];
 }
-
 
 @end
