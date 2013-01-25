@@ -9,6 +9,8 @@
 #import "AFCollectionViewCell.h"
 #import "AFCollectionViewLayoutAttributes.h"
 
+#define kTextColor  [UIColor colorWithRed:0.42f green:0.07f blue:0.25f alpha:1.0f]
+
 @interface AFCollectionViewCellSelectedView : UIView
 
 @property (nonatomic, assign) BOOL selected;
@@ -36,13 +38,13 @@
     
     nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     nameLabel.backgroundColor = [UIColor clearColor];
-    nameLabel.textColor = [UIColor darkTextColor];
-    nameLabel.font = [UIFont systemFontOfSize:17];
+    nameLabel.textColor = kTextColor;
+    nameLabel.font = [UIFont boldSystemFontOfSize:17];
     [self.contentView addSubview:nameLabel];
     
     regionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     regionLabel.backgroundColor = [UIColor clearColor];
-    regionLabel.textColor = [UIColor darkTextColor];
+    regionLabel.textColor = kTextColor;
     regionLabel.font = [UIFont systemFontOfSize:17];
     [self.contentView addSubview:regionLabel];
     
@@ -113,8 +115,18 @@
     else if (castedLayoutAttributes.layoutMode == AFCollectionViewLayoutAttributesLayoutModeList)
     {
         imageView.frame = CGRectMake(inset, inset, CGRectGetHeight(self.contentView.bounds) - inset*2.0f, CGRectGetHeight(self.contentView.bounds) - inset*2.0f);
-        nameLabel.frame = CGRectMake(CGRectGetHeight(self.contentView.bounds) + textMargin, 5.0f, CGRectGetWidth(self.contentView.bounds) - CGRectGetHeight(self.contentView.bounds) - 2.0f*textMargin, 44);
-        regionLabel.frame = CGRectMake(CGRectGetHeight(self.contentView.bounds) + textMargin, 45, CGRectGetWidth(self.contentView.bounds) - CGRectGetHeight(self.contentView.bounds) - 2.0f*textMargin, 44);
+        
+        if (regionLabel.text.length < 1)
+        {
+            nameLabel.frame = CGRectMake(CGRectGetHeight(self.contentView.bounds) + textMargin, 5.0f, CGRectGetWidth(self.contentView.bounds) - CGRectGetHeight(self.contentView.bounds) - 2.0f*textMargin, 88);
+            regionLabel.frame = CGRectMake(CGRectGetHeight(self.contentView.bounds) + textMargin, 45, CGRectGetWidth(self.contentView.bounds) - CGRectGetHeight(self.contentView.bounds) - 2.0f*textMargin, 44);
+        }
+        else
+        {
+            nameLabel.frame = CGRectMake(CGRectGetHeight(self.contentView.bounds) + textMargin, 5.0f, CGRectGetWidth(self.contentView.bounds) - CGRectGetHeight(self.contentView.bounds) - 2.0f*textMargin, 44);
+            regionLabel.frame = CGRectMake(CGRectGetHeight(self.contentView.bounds) + textMargin, 45, CGRectGetWidth(self.contentView.bounds) - CGRectGetHeight(self.contentView.bounds) - 2.0f*textMargin, 44);
+        }
+        
         regionLabel.alpha = 1.0f;
         labelBackgroundView.alpha = 0.0f;
         labelBackgroundView.frame = CGRectMake(CGRectGetHeight(self.contentView.bounds), inset, CGRectGetWidth(self.contentView.bounds) - CGRectGetHeight(self.contentView.bounds), CGRectGetHeight(self.contentView.bounds) - inset*2.0f);
