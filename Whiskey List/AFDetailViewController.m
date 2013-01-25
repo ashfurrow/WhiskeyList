@@ -16,6 +16,9 @@
 
 enum {
     AFDetailViewControllerNameSection = 0,
+    AFDetailViewControllerDetailsNoseSection,
+    AFDetailViewControllerDetailsTasteSection,
+    AFDetailViewControllerDetailsNotesSection,
     AFDetailViewControllerNumberOfSections
 };
 
@@ -29,6 +32,7 @@ NSString * const AFModelRelationWasUpdatedNotification = @"AFModelRelationWasUpd
 
 static NSString *NameRowCellIdentifier = @"NameRowCell";
 static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
+static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 
 @interface AFDetailViewController ()
 
@@ -51,6 +55,7 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     
     [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:NameRowCellIdentifier];
     [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:RegionRowCellIdentifier];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DetailRowCellIdentifier];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTextFieldChange:) name:UITextFieldTextDidChangeNotification object:nil];
 }
@@ -82,22 +87,33 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     {
         return AFDetailViewControllerNameSectionNumberOfRows;
     }
+    else if (section == AFDetailViewControllerDetailsNoseSection ||
+             section == AFDetailViewControllerDetailsNotesSection ||
+             section == AFDetailViewControllerDetailsTasteSection)
+    {
+        return 1;
+    }
     
     return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == AFDetailViewControllerNameSectionNameRow)
+    if (indexPath.section == AFDetailViewControllerDetailsNoseSection ||
+        indexPath.section == AFDetailViewControllerDetailsNotesSection ||
+        indexPath.section == AFDetailViewControllerDetailsTasteSection)
+    {
+        UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:DetailRowCellIdentifier forIndexPath:indexPath];
+        
+        [self configureDetailCell:cell forIndexPath:indexPath];
+        
+        return cell;
+    }
+    else if (indexPath.row == AFDetailViewControllerNameSectionNameRow)
     {
         AFNameSectionCell *cell = (AFNameSectionCell *)[tableView dequeueReusableCellWithIdentifier:NameRowCellIdentifier forIndexPath:indexPath];
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.enableTextField = YES;
-        
-        cell.textFieldText = [self.detailItem valueForKey:@"name"];
-        cell.textFieldPlaceholder = NSLocalizedString(@"Whiskey Name", @"");
+        [self configureNameSectionCell:cell forIndexPath:indexPath];
         
         return cell;
     }
@@ -105,28 +121,12 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     {
         AFNameSectionCell *cell = (AFNameSectionCell *)[tableView dequeueReusableCellWithIdentifier:RegionRowCellIdentifier forIndexPath:indexPath];
         
-        cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-        
-        cell.enableTextField = NO;
-        
-        NSString *regionName = self.savedRegion.name;
-        
-        if (regionName.length > 0)
-        {
-            cell.textLabel.text = regionName;
-            cell.textLabel.textColor = [UIColor blackColor];
-        }
-        else
-        {
-            cell.textLabel.text = NSLocalizedString(@"No Region", @"");
-            cell.textLabel.textColor = [UIColor lightGrayColor];
-        }
+        [self configureRegionCell:cell forIndexPath:indexPath];
         
         return cell;
     }
+    
+    NSAssert(NO, @"Table view data source did not return cell.");
     
     return nil;
 }
@@ -168,6 +168,29 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == AFDetailViewControllerDetailsNoseSection)
+    {
+        return NSLocalizedString(@"Nose", @"Nose section header text");
+    }
+    else if (section == AFDetailViewControllerDetailsNotesSection)
+    {
+        return NSLocalizedString(@"Notes", @"Notes section header text");
+    }
+    else if (section == AFDetailViewControllerDetailsTasteSection)
+    {
+        return NSLocalizedString(@"Taste", @"Taste section header text");
+    }
+    
+    return nil;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -219,7 +242,7 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     // Check to make sure we're on screen (this is called from viewDidLoad).
     if (self.view.window)
     {
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:self.tableView.numberOfSections - 1] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:self.tableView.numberOfSections - 1] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
@@ -337,6 +360,50 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
 
 #pragma mark - Private Custom Methods
 
+#pragma mark UITableViewCell Cofiguration methods
+
+-(void)configureNameSectionCell:(AFNameSectionCell *)cell forIndexPath:(NSIndexPath *)indexPath
+{
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.enableTextField = YES;
+    
+    cell.textFieldText = [self.detailItem valueForKey:@"name"];
+    cell.textFieldPlaceholder = NSLocalizedString(@"Whiskey Name", @"");
+}
+
+-(void)configureRegionCell:(AFNameSectionCell *)cell forIndexPath:(NSIndexPath *)indexPath
+{
+    cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    
+    cell.enableTextField = NO;
+    
+    NSString *regionName = self.savedRegion.name;
+    
+    if (regionName.length > 0)
+    {
+        cell.textLabel.text = regionName;
+        cell.textLabel.textColor = [UIColor blackColor];
+    }
+    else
+    {
+        cell.textLabel.text = NSLocalizedString(@"No Region", @"");
+        cell.textLabel.textColor = [UIColor lightGrayColor];
+    }
+}
+
+-(void)configureDetailCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
+{
+    //TODO:
+    
+    cell.shouldIndentWhileEditing = NO;
+}
+
+#pragma mark NSNotificationCenter Methods
+
 -(void)handleTextFieldChange:(NSNotification *)notification
 {
     UITextField *textField = (UITextField *)notification.object;
@@ -346,6 +413,8 @@ static NSString *RegionRowCellIdentifier = @"RegionRowCellIdentifier";
     
     self.navigationItem.rightBarButtonItem.enabled = [[textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0;
 }
+
+#pragma mark Others
 
 -(void)handleDeletionActionSheetButtonIndex:(NSInteger)buttonIndex
 {

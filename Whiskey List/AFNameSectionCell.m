@@ -76,11 +76,6 @@
     CGRect originalFrame = self.frame;
     CGSize offset = CGSizeMake(100, 0);
     
-    if (self.editing)
-    {
-        offset.width -= 32;
-    }
-    
     CGFloat newX = offset.width;
     CGFloat newWidth = 320 - offset.width;
     

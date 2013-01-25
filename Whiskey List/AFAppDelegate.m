@@ -8,6 +8,7 @@
 
 #import "AFAppDelegate.h"
 
+#import <Crashlytics/Crashlytics.h>
 #import "TestFlight.h"
 
 #import "AFMasterViewController.h"
@@ -46,6 +47,7 @@ static NSString *kFirstRunKey = @"first run";
     }
     
     [TestFlight takeOff:@"f28710e78801b9c0d4a2b7960767c8a1_OTIzNDAyMDEyLTA1LTIyIDE5OjAzOjM1LjM5Nzk2Nw"];
+    [Crashlytics startWithAPIKey:@"e92912505e9b6327bad28022d04290c3ddffaa82"];
     
     return YES;
 }
