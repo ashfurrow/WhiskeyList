@@ -53,6 +53,7 @@
 		5EB325D116B2D01B00D703E1 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB325CF16B2D01B00D703E1 /* delete@2x.png */; };
 		5EB325D816B2DB9B00D703E1 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB325D716B2DB9B00D703E1 /* Crashlytics.framework */; };
 		5EB325DE16B2DF8C00D703E1 /* AFWhiskey.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB325DD16B2DF8B00D703E1 /* AFWhiskey.m */; };
+		5EB325E116B2E2FA00D703E1 /* AFDetailSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB325E016B2E2FA00D703E1 /* AFDetailSectionCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +130,8 @@
 		5EB325D716B2DB9B00D703E1 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		5EB325DC16B2DF8B00D703E1 /* AFWhiskey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFWhiskey.h; path = ../AFWhiskey.h; sourceTree = "<group>"; };
 		5EB325DD16B2DF8B00D703E1 /* AFWhiskey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFWhiskey.m; path = ../AFWhiskey.m; sourceTree = "<group>"; };
+		5EB325DF16B2E2FA00D703E1 /* AFDetailSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFDetailSectionCell.h; sourceTree = "<group>"; };
+		5EB325E016B2E2FA00D703E1 /* AFDetailSectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFDetailSectionCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +289,8 @@
 				5EA77C6416AF33FA00C1C62A /* AFNameSectionCell.m */,
 				5E97E11516B1A169004E43B5 /* AFPhotoButton.h */,
 				5E97E11616B1A169004E43B5 /* AFPhotoButton.m */,
+				5EB325DF16B2E2FA00D703E1 /* AFDetailSectionCell.h */,
+				5EB325E016B2E2FA00D703E1 /* AFDetailSectionCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -502,6 +507,7 @@
 				5E97E11B16B1BFF3004E43B5 /* AFRegionSelectViewController.m in Sources */,
 				5E97E15216B2194E004E43B5 /* AFZoomedPhotoViewController.m in Sources */,
 				5EB325DE16B2DF8C00D703E1 /* AFWhiskey.m in Sources */,
+				5EB325E116B2E2FA00D703E1 /* AFDetailSectionCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,8 @@
     textField = [[UITextField alloc] initWithFrame:CGRectZero];
     textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     textField.font = [UIFont boldSystemFontOfSize:17];
+    textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    textField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self.contentView addSubview:textField];
     
     [self setTextFieldPlaceholder:@""];
@@ -82,7 +84,9 @@
     CGRect newFrame = CGRectMake(newX, originalFrame.origin.y, newWidth, originalFrame.size.height);
     self.frame = newFrame;
     
-    textField.frame = CGRectInset(self.bounds, 10, 10);
+    CGRect rect = CGRectInset(self.bounds, 10, 10);
+    rect.size.width -= 10.0f;
+    textField.frame = rect;
 }
 
 #pragma mark - Overridden properties

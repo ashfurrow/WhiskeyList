@@ -17,6 +17,7 @@
 // Views
 #import "AFPhotoButton.h"
 #import "AFNameSectionCell.h"
+#import "AFDetailSectionCell.h"
 
 enum {
     AFDetailViewControllerNameSection = 0,
@@ -59,7 +60,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     
     [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:NameRowCellIdentifier];
     [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:RegionRowCellIdentifier];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DetailRowCellIdentifier];
+    [self.tableView registerClass:[AFDetailSectionCell class] forCellReuseIdentifier:DetailRowCellIdentifier];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTextFieldChange:) name:UITextFieldTextDidChangeNotification object:nil];
 }
@@ -107,7 +108,7 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
         indexPath.section == AFDetailViewControllerDetailsNotesSection ||
         indexPath.section == AFDetailViewControllerDetailsTasteSection)
     {
-        UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:DetailRowCellIdentifier forIndexPath:indexPath];
+        AFDetailSectionCell *cell = (AFDetailSectionCell *)[tableView dequeueReusableCellWithIdentifier:DetailRowCellIdentifier forIndexPath:indexPath];
         
         [self configureDetailCell:cell forIndexPath:indexPath];
         
@@ -239,6 +240,56 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     
     return 44.0f;
 }
+
+#pragma mark Copy Support
+
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == AFDetailViewControllerNameSectionRegionRow && indexPath.section == AFDetailViewControllerNameSection)
+    {
+        return self.whiskey.region != nil;
+    }
+    
+    return !self.editing;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    return !self.editing && [NSStringFromSelector(action) isEqualToString:@"copy:"];
+}
+
+- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    NSString *text = @"";
+    
+    if (indexPath.section == AFDetailViewControllerNameSection)
+    {
+        if (indexPath.row == AFDetailViewControllerNameSectionNameRow)
+        {
+            text = self.whiskey.name;
+        }
+        else if (indexPath.row == AFDetailViewControllerNameSectionRegionRow)
+        {
+            text = self.whiskey.region.name;
+        }
+    }
+    else if (indexPath.section == AFDetailViewControllerDetailsNoseSection)
+    {
+        text = self.whiskey.nose;
+    }
+    else if (indexPath.section == AFDetailViewControllerDetailsNotesSection)
+    {
+        text = self.whiskey.notes;
+    }
+    else if (indexPath.section == AFDetailViewControllerDetailsTasteSection)
+    {
+        text = self.whiskey.taste;
+    }
+    
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    [pasteBoard setString:text];
+}
+
 
 #pragma mark - Overridden Properties
 
@@ -427,27 +478,24 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     }
 }
 
--(void)configureDetailCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
+-(void)configureDetailCell:(AFDetailSectionCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (indexPath.section == AFDetailViewControllerDetailsNoseSection)
     {
-        cell.textLabel.text = self.whiskey.nose;
+        cell.detailText = self.whiskey.nose;
     }
     else if (indexPath.section == AFDetailViewControllerDetailsNotesSection)
     {
-        cell.textLabel.text = self.whiskey.notes;
+        cell.detailText = self.whiskey.notes;
     }
     else if (indexPath.section == AFDetailViewControllerDetailsTasteSection)
     {
-        cell.textLabel.text = self.whiskey.taste;
+        cell.detailText = self.whiskey.taste;
     }
 
     // 0 means "infinite"
     cell.textLabel.numberOfLines = 0;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    
-    cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     cell.shouldIndentWhileEditing = NO;
 }
@@ -614,11 +662,17 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 
 -(void)updateItem
 {
-    [self.whiskey setValue:[self nameString] forKey:@"name"];
-    [self.whiskey setValue:[[self nameString] lowercaseString] forKey:@"canonicalName"];
-    [[self.whiskey valueForKey:@"region"] removeWhiskiesObject:self.whiskey];
-    [self.whiskey setValue:self.savedRegion forKey:@"region"];
-    [[self.whiskey valueForKey:@"region"] addWhiskiesObject:self.whiskey];
+    // Attributes
+    self.whiskey.name = [self nameString];
+    self.whiskey.canonicalName = [[self nameString] lowercaseString];
+    self.whiskey.nose = [(AFDetailSectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:AFDetailViewControllerDetailsNoseSection]] detailText];
+    self.whiskey.notes = [(AFDetailSectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:AFDetailViewControllerDetailsNotesSection]] detailText];
+    self.whiskey.taste = [(AFDetailSectionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:AFDetailViewControllerDetailsTasteSection]] detailText];
+    
+    // Relationships
+    [self.whiskey.region removeWhiskiesObject:self.whiskey];
+    self.whiskey.region = self.savedRegion;
+    [self.whiskey.region addWhiskiesObject:self.whiskey];
 }
 
 #pragma mark - UIActionSheetDelegate methods
