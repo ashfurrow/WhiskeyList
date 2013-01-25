@@ -39,10 +39,8 @@
 		5EA9E6A516AE1644008DC4E4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA9E6A416AE1644008DC4E4 /* QuartzCore.framework */; };
 		5EA9E6A816AE178F008DC4E4 /* AFColelctionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6A716AE178F008DC4E4 /* AFColelctionViewFlowLayout.m */; };
 		5EA9E6AC16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6AB16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.m */; };
-		5EA9E6AF16AE1AA6008DC4E4 /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6AD16AE1AA5008DC4E4 /* grid.png */; };
 		5EA9E6B016AE1AA6008DC4E4 /* grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6AE16AE1AA5008DC4E4 /* grid@2x.png */; };
 		5EA9E6B416AE1BC6008DC4E4 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6B216AE1BC6008DC4E4 /* list@2x.png */; };
-		5EA9E6B516AE1BC6008DC4E4 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9E6B316AE1BC6008DC4E4 /* list.png */; };
 		5EA9E6BD16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6BC16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m */; };
 		5EA9E6C016AE2A31008DC4E4 /* AFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6BF16AE2A30008DC4E4 /* AFNavigationController.m */; };
 		5EA9E6C316AE3A32008DC4E4 /* AFRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA9E6C216AE3A32008DC4E4 /* AFRegion.m */; };
@@ -112,10 +110,8 @@
 		5EA9E6A716AE178F008DC4E4 /* AFColelctionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFColelctionViewFlowLayout.m; sourceTree = "<group>"; };
 		5EA9E6AA16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFCollectionViewLayoutAttributes.h; sourceTree = "<group>"; };
 		5EA9E6AB16AE19A0008DC4E4 /* AFCollectionViewLayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFCollectionViewLayoutAttributes.m; sourceTree = "<group>"; };
-		5EA9E6AD16AE1AA5008DC4E4 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
 		5EA9E6AE16AE1AA5008DC4E4 /* grid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grid@2x.png"; sourceTree = "<group>"; };
 		5EA9E6B216AE1BC6008DC4E4 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
-		5EA9E6B316AE1BC6008DC4E4 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
 		5EA9E6BB16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFMasterViewController+NSFetchedResultsController.h"; sourceTree = "<group>"; };
 		5EA9E6BC16AE217F008DC4E4 /* AFMasterViewController+NSFetchedResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFMasterViewController+NSFetchedResultsController.m"; sourceTree = "<group>"; };
 		5EA9E6BE16AE2A30008DC4E4 /* AFNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNavigationController.h; sourceTree = "<group>"; };
@@ -328,10 +324,8 @@
 				5E97E13716B1FE58004E43B5 /* subtle_stripes_@2X.png */,
 				5E97E13816B1FE58004E43B5 /* subtle_stripes.png */,
 				5E97E13516B1FDC3004E43B5 /* leather.jpg */,
-				5EA9E6AD16AE1AA5008DC4E4 /* grid.png */,
 				5EA9E6AE16AE1AA5008DC4E4 /* grid@2x.png */,
 				5EA9E6B216AE1BC6008DC4E4 /* list@2x.png */,
-				5EA9E6B316AE1BC6008DC4E4 /* list.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -433,10 +427,8 @@
 				5EA9E66316AE1203008DC4E4 /* Default.png in Resources */,
 				5EA9E66516AE1203008DC4E4 /* Default@2x.png in Resources */,
 				5EA9E66716AE1203008DC4E4 /* Default-568h@2x.png in Resources */,
-				5EA9E6AF16AE1AA6008DC4E4 /* grid.png in Resources */,
 				5EA9E6B016AE1AA6008DC4E4 /* grid@2x.png in Resources */,
 				5EA9E6B416AE1BC6008DC4E4 /* list@2x.png in Resources */,
-				5EA9E6B516AE1BC6008DC4E4 /* list.png in Resources */,
 				5E97E13616B1FDC3004E43B5 /* leather.jpg in Resources */,
 				5E97E13916B1FE58004E43B5 /* subtle_stripes_@2X.png in Resources */,
 				5E97E13A16B1FE58004E43B5 /* subtle_stripes.png in Resources */,
