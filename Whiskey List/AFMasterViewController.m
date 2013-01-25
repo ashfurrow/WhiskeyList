@@ -200,6 +200,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 -(void)setupNavigationItem
 {
+    //TODO: Save context more often
     self.layoutModeSelectionSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"grid"], [UIImage imageNamed:@"list"]]];
     self.layoutModeSelectionSegmentedControl.selectedSegmentIndex = [[NSUserDefaults standardUserDefaults] integerForKey:AFCollectionViewLayoutModeKey];
     self.layoutModeSelectionSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
