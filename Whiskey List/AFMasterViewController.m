@@ -74,6 +74,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
     self.noResultsImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"add"]];
     self.noResultsImageView.userInteractionEnabled = NO;
     self.noResultsImageView.contentMode = UIViewContentModeRight;
+    self.noResultsImageView.alpha = 0.0f;
 }
 
 - (void)viewDidLoad
@@ -88,6 +89,15 @@ static NSString *CellIdentifier = @"CellIdentifier";
     [super viewWillAppear:animated];
     
     [self updateNoResultsView];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [UIView animateWithDuration:0.5f animations:^{
+        self.noResultsImageView.alpha = 1.0f;
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -183,6 +193,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
     {
         [self.parentViewController.view addSubview:self.noResultsImageView];
         self.noResultsImageView.frame = CGRectMake(0, 64, 320, 131);
+        self.noResultsImageView.alpha = 0.0f;
     }
     else
     {

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5E2929F816B31BCA009A538A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2929F716B31BCA009A538A /* Icon.png */; };
 		5E2929FA16B31BCE009A538A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E2929F916B31BCE009A538A /* Icon@2x.png */; };
+		5E292A3416B36C41009A538A /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E292A3316B36C41009A538A /* add@2x.png */; };
 		5E7BB7CA16B21E4900FA894C /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7BB7C916B21E4900FA894C /* add.png */; };
 		5E97E11716B1A169004E43B5 /* AFPhotoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E97E11616B1A169004E43B5 /* AFPhotoButton.m */; };
 		5E97E11B16B1BFF3004E43B5 /* AFRegionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E97E11A16B1BFF3004E43B5 /* AFRegionSelectViewController.m */; };
@@ -68,6 +69,7 @@
 /* Begin PBXFileReference section */
 		5E2929F716B31BCA009A538A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		5E2929F916B31BCE009A538A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		5E292A3316B36C41009A538A /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		5E7BB7C916B21E4900FA894C /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		5E97E11516B1A169004E43B5 /* AFPhotoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPhotoButton.h; sourceTree = "<group>"; };
 		5E97E11616B1A169004E43B5 /* AFPhotoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPhotoButton.m; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				5EB325CE16B2D01B00D703E1 /* delete.png */,
 				5EB325CF16B2D01B00D703E1 /* delete@2x.png */,
 				5E7BB7C916B21E4900FA894C /* add.png */,
+				5E292A3316B36C41009A538A /* add@2x.png */,
 				5E97E13F16B20783004E43B5 /* missing@2x.png */,
 				5E97E13716B1FE58004E43B5 /* subtle_stripes_@2X.png */,
 				5E97E13816B1FE58004E43B5 /* subtle_stripes.png */,
@@ -440,6 +443,7 @@
 				5EB325D116B2D01B00D703E1 /* delete@2x.png in Resources */,
 				5E2929F816B31BCA009A538A /* Icon.png in Resources */,
 				5E2929FA16B31BCE009A538A /* Icon@2x.png in Resources */,
+				5E292A3416B36C41009A538A /* add@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
