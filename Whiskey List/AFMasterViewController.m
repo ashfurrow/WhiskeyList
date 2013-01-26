@@ -90,7 +90,9 @@ static NSString *CellIdentifier = @"CellIdentifier";
     
     [self updateNoResultsView];
     
-    [self.collectionView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadItemsAtIndexPaths:[self.collectionView indexPathsForVisibleItems]];
+    });
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -135,6 +137,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
 {
     AFDetailViewController *viewController = [[AFDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     viewController.whiskey = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -214,11 +217,15 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 -(void)setupNavigationItem
 {
-    self.layoutModeSelectionSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"grid"], [UIImage imageNamed:@"list"]]];
+    NSArray *images = @[[UIImage imageNamed:@"grid"], [UIImage imageNamed:@"list"]];
+    [images[0] setAccessibilityLabel:NSLocalizedString(@"Grid Layout", @"Segmented control accessibility label for grid.")];
+    [images[1] setAccessibilityLabel:NSLocalizedString(@"List Layout", @"Segmented control accessibility label for list.")];
+    
+    self.layoutModeSelectionSegmentedControl = [[UISegmentedControl alloc] initWithItems:images];
     self.layoutModeSelectionSegmentedControl.selectedSegmentIndex = [[NSUserDefaults standardUserDefaults] integerForKey:AFCollectionViewLayoutModeKey];
     self.layoutModeSelectionSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     [self.layoutModeSelectionSegmentedControl addTarget:self action:@selector(layoutModeSegmentedValueChanged:) forControlEvents:UIControlEventValueChanged];
-    //TODO: segmented control accessibility
+    
     
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.layoutModeSelectionSegmentedControl];;
     leftBarButtonItem.style = UIBarButtonItemStylePlain;

@@ -22,6 +22,7 @@
     textField.font = [UIFont boldSystemFontOfSize:17];
     textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    textField.tag = 100;
     [self.contentView addSubview:textField];
     
     [self setTextFieldPlaceholder:@""];

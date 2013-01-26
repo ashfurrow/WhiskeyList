@@ -66,15 +66,18 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
     
-    [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:NameRowCellIdentifier];
-    [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:RegionRowCellIdentifier];
-    [self.tableView registerClass:[AFDetailSectionCell class] forCellReuseIdentifier:DetailRowCellIdentifier];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:AgeRowCellIdentifier];
+//    [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:NameRowCellIdentifier];
+//    [self.tableView registerClass:[AFNameSectionCell class] forCellReuseIdentifier:RegionRowCellIdentifier];
+//    [self.tableView registerClass:[AFDetailSectionCell class] forCellReuseIdentifier:DetailRowCellIdentifier];
+//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:AgeRowCellIdentifier];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTextFieldChange:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTextViewChange:) name:UITextViewTextDidChangeNotification object:nil];
     
+    // Will be replaced later, if we have a detail item. 
     self.savedAge = 12;
+    
+    [self.tableView reloadData];
 }
 
 -(void)dealloc
@@ -130,7 +133,9 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
         indexPath.section == AFDetailViewControllerDetailsNotesSection ||
         indexPath.section == AFDetailViewControllerDetailsTasteSection)
     {
-        AFDetailSectionCell *cell = (AFDetailSectionCell *)[tableView dequeueReusableCellWithIdentifier:DetailRowCellIdentifier forIndexPath:indexPath];
+        AFDetailSectionCell *cell = (AFDetailSectionCell *)[tableView dequeueReusableCellWithIdentifier:DetailRowCellIdentifier];
+        
+        if (!cell) cell = [[AFDetailSectionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AgeRowCellIdentifier];
         
         [self configureDetailCell:cell forIndexPath:indexPath];
         
@@ -140,13 +145,17 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:AgeRowCellIdentifier];
         
+        if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AgeRowCellIdentifier];
+        
         [self configureAgeCell:cell forIndexPath:indexPath];
         
         return cell;
     }
     else if (indexPath.row == AFDetailViewControllerNameSectionNameRow)
     {
-        AFNameSectionCell *cell = (AFNameSectionCell *)[tableView dequeueReusableCellWithIdentifier:NameRowCellIdentifier forIndexPath:indexPath];
+        AFNameSectionCell *cell = (AFNameSectionCell *)[tableView dequeueReusableCellWithIdentifier:NameRowCellIdentifier];
+        
+        if (!cell) cell = [[AFNameSectionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AgeRowCellIdentifier];
         
         [self configureNameSectionCell:cell forIndexPath:indexPath];
         
@@ -154,7 +163,9 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     }
     else if (indexPath.row == AFDetailViewControllerNameSectionRegionRow)
     {
-        AFNameSectionCell *cell = (AFNameSectionCell *)[tableView dequeueReusableCellWithIdentifier:RegionRowCellIdentifier forIndexPath:indexPath];
+        AFNameSectionCell *cell = (AFNameSectionCell *)[tableView dequeueReusableCellWithIdentifier:RegionRowCellIdentifier];
+        
+        if (!cell) cell = [[AFNameSectionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AgeRowCellIdentifier];
         
         [self configureRegionCell:cell forIndexPath:indexPath];
         
@@ -370,7 +381,6 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
         self.savedAge = newDetailItem.age.integerValue;
         self.savedTaste = newDetailItem.taste;
         _whiskey = newDetailItem;
-        self.managedObjectContext = newDetailItem.managedObjectContext;
         
         // Update the view.
         [self configureView];
@@ -519,6 +529,9 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     
     NSString *regionName = self.savedRegion.name;
     
+    cell.accessibilityHint = NSLocalizedString(@"Selects the region of the whiskey", @"region select cell accessbility hint");
+    [[cell viewWithTag:100] setIsAccessibilityElement:NO];
+    
     if (regionName.length > 0)
     {
         cell.textLabel.text = regionName;
@@ -659,14 +672,13 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:AFModelRelationWasUpdatedNotification object:self.whiskey];
 }
 
 - (void)configureView
 {
     self.photoButton = [AFPhotoButton buttonWithType:UIButtonTypeCustom];
     self.photoButton.frame = CGRectMake(10, 10, 90, 90);
+    self.photoButton.accessibilityFrame = CGRectMake(10, 10, 90, 90);
     [self.photoButton addTarget:self action:@selector(userDidTapEditPhotoButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableView addSubview:self.photoButton];
     

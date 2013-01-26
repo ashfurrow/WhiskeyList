@@ -26,6 +26,8 @@
     self.titleLabel.textColor = [UIColor whiteColor];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     
+    self.accessibilityLabel = NSLocalizedString(@"Photo button", @"photo button accessibility label.");
+    
     return self;
 }
 
@@ -72,6 +74,22 @@
         self.layer.shadowPath = nil;
         self.layer.shadowOpacity = 0.0f;
         self.layer.shadowOffset = CGSizeZero;
+    }
+    
+    
+    if (self.editing)
+    {
+        self.accessibilityElementsHidden = NO;
+        self.accessibilityLabel = NSLocalizedString(@"Edit photo", @" photo button accessibility label while editing.");
+    }
+    else if (self.photo)
+    {
+        self.accessibilityElementsHidden = NO;
+        self.accessibilityLabel = NSLocalizedString(@"View photo", @" photo button accessibility label while not editing.");
+    }
+    else
+    {
+        self.accessibilityElementsHidden = YES;
     }
     
     [self setNeedsDisplay];
