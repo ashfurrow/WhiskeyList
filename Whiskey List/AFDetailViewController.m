@@ -73,6 +73,8 @@ static NSString *DetailRowCellIdentifier = @"DetailRowCellIdentifier";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTextFieldChange:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTextViewChange:) name:UITextViewTextDidChangeNotification object:nil];
+    
+    self.savedAge = 12;
 }
 
 -(void)dealloc

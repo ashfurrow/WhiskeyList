@@ -89,6 +89,8 @@ static NSString *CellIdentifier = @"CellIdentifier";
     [super viewWillAppear:animated];
     
     [self updateNoResultsView];
+    
+    [self.collectionView reloadData];
 }
 
 -(void)viewDidAppear:(BOOL)animated
